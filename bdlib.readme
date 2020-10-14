@@ -1,0 +1,44 @@
+1. Check the following points before run any build command   
+
+	!*****************************************************************
+	To correctlly build the mdpscu libraries, the envirenment varibale 
+	should be set in file .bashrc. 
+
+	For example, if the path of mdpscu sources is SOMEWHERE in youe 
+	home path, add the following statement in your .bashrc file:
+
+	MDPSCUSOR=$HOME/SOMEWHERE/mdpscu; export MDPSCUSOR
+	PATH=$MDPSCUSOR:$PATH; export PATH
+
+	!*****************************************************************
+	It is recommanded to output the intermediate files (.o, .mod) and 
+	libraries (lib*.a) to a location beyond the localtion of the mdpscu 
+	sources.
+	
+	For example, if the your workspace is SOMEWHERE in your home path, 
+	add the following statement in your .bashrc file:
+
+	WORKSPACE=$HOME/SOMEWHERE; export WORKSPACE
+	PATH=$WORKSPACE/applications:$PATH; export PATH
+
+	Then, the intermediate files and libraries will be output to 
+	$HOME/SOMEWHERE/LIB, and the excutables to be build will be output 
+	to $HOME/SOMEWHERE/applications.
+
+	!*****************************************************************
+	Since PGI compiler to be used to compile the sources for the GPU 
+	version of mdpscu. The path of PGI compiler should be add in PATH.
+	
+	For example, if the PGI compiler(version14.3) is in /opt/pgi, then 
+	the following statement should be add in .bashrc:
+
+	PGI=/opt/pgi; export PGI
+	PATH=/opt/pgi/linux86-64/14.3/bin:/opt/pgi/linux86-64/2014/include::$PATH; export PATH
+        MANPATH=$MANPATH:/opt/pgi/linux86-64/14.3/man; export MANPATH
+        LM_LICENSE_FILE=$LM_LICENSE_FILE:/opt/pgi/license.dat;export LM_LICENSE_FILE
+
+2. Restart a terminal
+3. Run "bdlib", to build the basic libraries of mdpscu
+4. Build applications following the instructions given in buildapp.readme  
+
+
