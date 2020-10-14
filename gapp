@@ -1,0 +1,37 @@
+#
+APPTYPE="${PWD##*'/'}"
+
+if [ "$APPTYPE" = "mdapps" ]; then
+      export MDPSCUAPP=$MSMPSCUSOR"/MDLIB/applications"
+      $MDPSCUAPP/bdapp $1 $2
+      
+elif [ "$APPTYPE" = "mdanaly" ]; then
+      export MDPSCUANALY=$MSMPSCUSOR"/MDLIB/analytools"
+      $MDPSCUANALY/bdtool $1 $2
+      
+elif [ "$APPTYPE" = "MDLIB" ]; then
+    export PACKNAME=$APPTYPE
+    $MSMPSCUSOR/bdlib $1
+    
+elif [ "$APPTYPE" = "mcapps" ]; then
+      export MCPSCUAPP=$MSMPSCUSOR"/MCLIB/applications"
+      $MCPSCUAPP/bdapp $1 $2    
+      
+elif [ "$APPTYPE" = "MCLIB" ]; then
+    export PACKNAME=$APPTYPE
+    $MSMPSCUSOR/bdlib $1
+      
+else 
+     export APPDIR="$PWD"
+     #echo $APPDIR
+     #arg=""
+     #while [ -n "$1" ]
+     #do
+     #  arg=$arg" "$1
+     #  shift
+     #done
+     #echo $arg
+     
+     $MSMPSCUSOR/bdapp $*
+     #echo "No thing to do" 
+fi

@@ -1,0 +1,145 @@
+#Check the envirenmental variable
+
+#Create the directory for the lib
+if [ ! -d $WORKSPACE/LIB ];then
+     mkdir $WORKSPACE/LIB
+fi
+
+cd $MSMPSCUSOR
+#folder that some commonly used template in  
+export MSMLIBDIRS=$MSMPSCUSOR/MSMLIB/sor/
+
+#assign the extention of libs
+#for linux, the extension is "a"; for windows, it is "lib"
+OSVER=$(cat /proc/version | head -c 5)
+
+## set parameters according to the system
+if [ "$OSVER" = "CYGWI" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc2x 
+   export LIB_EXT=lib
+fi
+
+if [ "$OSVER" = "Linux" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc3x 
+   export LIB_EXT=a
+fi
+
+
+if [ "$CUDAV" != "" ]; then
+   cudaxx='cuda'$CUDAV     
+fi
+
+if [ "$CUDAC" != "" ]; then
+   cudacc='cc'$CUDAC     
+fi   
+
+###########
+
+#####
+
+if [ $# = 0 ] || [ "$1" = "-help" ] && [ "$PACKNAME" = "" ]; then 
+    echo "Usage: ./bdlib [options] libname" 
+    echo ""
+    echo "[option]:"
+    echo "       -d            create debug version"
+    echo "       -r(default)   create release version"
+    echo "       -dc           clear debug version"
+    echo "       -rc, -c       clear release version"
+    echo "example: "
+    echo "       bdlib -r MDLIB"
+elif [ "$1" = "-c"  -o "$1" = "-rc"  ];then 
+     echo "Clear release version"
+     ConfigName="Release"
+     if [ -d $WORKSPACE/LIB/$ConfigName ];then
+          rm -rf $WORKSPACE/LIB/$ConfigName
+     fi
+elif [ "$1" = "-dc" ]; then 
+    echo "Clear debug version"
+    ConfigName="Debug"; 
+    if [ -d $WORKSPACE/LIB/$ConfigName ];then
+        rm -rf $WORKSPACE/LIB/$ConfigName
+    fi
+else
+    ConfigName="Release" 
+    if [ $# = 1 ]; then
+   	  if [ -d "$1" ];then
+    	   PACKNAME="$1"
+      elif [ "$1" = "all" ];then 
+       	 PACKNAME=ALL
+      else
+       	echo "Error: incoorect libname $1" 
+        exit 
+      fi
+      
+    elif [ $# -gt 1 ]; then
+       if [ "$1" = "-d" ];then 
+       	  ConfigName="Debug" 
+       elif [ "$1" = "-r"  ];then
+       	  ConfigName="Release" 
+       else
+         echo "unknown option: $1" 	 
+          exit
+       fi
+       PACKNAME="$2"
+       if [ "$2" = "all" ];then 
+       	 PACKNAME=ALL
+       fi
+    fi
+
+    #!! MC, dependending on device version of randnumber, for CYGWI is not supported,
+    if [ "$OSVER" = "CYGWI" ]; then     
+    if [ "$PACKNAME" = "MCLIB" ];then 
+       echo "MC lib for CYGWI is not supported "
+       exit
+    fi   
+    fi        
+   
+    #!!!!
+    export ConfigName
+    #Create or clear release version
+    if [ "$ConfigName" = "Release" ];then 
+       echo "Create release version for "$PACKNAME
+       # the compling option for CYGWI
+       if [ "$OSVER" = "CYGWI" ]; then
+          export oflags="-fast -D WIN_FILE -D NODEVRAN -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,$cudaxx,$cudacc";
+       # the compling option for Linux
+       elif [ "$OSVER" = "Linux" ]; then
+          export oflags="-fast -tp sandybridge-64  -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,$cudaxx,$cudacc,nollvm";
+       fi        
+    else   
+       echo "Create debug version for "$PACKNAME
+       # the compling option for CYGWI
+       if [ "$OSVER" = "CYGWI" ]; then
+          export oflags="-g -Mcuda=$cudaxx,$cudacc,nodebug -D WIN_FILE -D NODEVRAN";
+       elif [ "$OSVER" = "Linux" ]; then
+          export oflags="-g -Mcuda=$cudaxx,$cudacc,nollvm,nodebug";
+       fi        
+    fi
+         
+    echo "with comipling option: "$oflags
+    if [ ! -d $WORKSPACE/LIB/$ConfigName ];then
+        mkdir $WORKSPACE/LIB/$ConfigName
+    fi
+    
+    if [ "$PACKNAME" = "" ]; then
+        echo "Error:  libname missed" 
+        exit    	
+        
+    else
+      if [ -d "$PACKNAME" ]; then
+         make -f $PACKNAME/Makefile
+      elif [ "$PACKNAME" = "ALL" ]; then
+      	 make -f MDLIB/Makefile
+      	 make -f MCLIB/Makefile
+      else
+        echo "Error: incoorect libname $PACKNAME" 
+        exit
+      fi   
+    fi
+fi
+
+
+
+

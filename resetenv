@@ -1,0 +1,76 @@
+OSVER=$(cat /proc/version | head -c 5)
+
+## set parameters according to the system
+if [ "$OSVER" = "CYGWI" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc2x 
+fi
+
+if [ "$OSVER" = "Linux" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc3x 
+fi
+
+
+if [ "$CUDAV" = "" ]; then
+   if [ "$OSVER" = "CYGWI" ]; then
+      CUDAV=8.0
+   fi    
+   if [ "$OSVER" = "Linux" ]; then
+      CUDAV=8.0
+   fi
+fi
+
+
+if [ "$CUDAC" = "" ]; then
+   if [ "$OSVER" = "CYGWI" ]; then
+      CUDAC=2x
+   fi    
+   if [ "$OSVER" = "Linux" ]; then
+      CUDAC=3.5
+   fi
+fi   
+
+
+echo 'The preset cuda version is '$CUDAV' with the capability '$CUDAC"" 
+echo 'Reset CUDA (y/n)? '
+read Y
+if test "$Y" = "y" ; then
+   echo -n 'Please input CUDA version '
+   read CUDAV
+   echo -n 'Please input CUDA Capability '
+   read CUDAC
+   echo 'Cuda Version is' $CUDAV 'with capability' $CUDAC
+   export CUDAC
+   export CUDAV
+   echo -n 'Save the change to .bashrc (y/n)? '
+   read Y
+   if test "$Y" == "y" ; then
+      echo '#--- The cuda version' >> $HOME/.bashrc
+      echo 'export CUDAV='$CUDAV >> $HOME/.bashrc
+      echo 'export CUDAC='$CUDAC >> $HOME/.bashrc
+   fi
+fi   
+
+echo -n 'Reset the compiler (y/n) '
+read Y
+if test "$Y" = "y" ; then
+   echo -n  'Please input paths of PGI compiler '
+   read PGI 
+   echo -n 'the version is '
+   read PGIVER
+   echo "path of the compiler is $PGI with version $PGIVER "
+   export PGI
+   L=${PGIVER%.*}
+   R=${PGIVER#*.}
+ 
+   PATH="$PGI/linux86-64/$L.$R/bin":"$PGI/linux86-64/20$L/include":$PATH;
+   export PATH
+   echo $PATH
+   echo -n 'Save the change to .bashrc (y/n)? '
+   read Y
+   if test "$Y" == "y" ; then
+      echo export $PATH >> $HOME/.bashrc
+   fi
+fi
+  
