@@ -1,0 +1,66 @@
+!***********************************************************************
+!   This is a sample file controlling the calculation and output in
+!   centro-symmetry-parameter calculations. You can write comments and 
+!   empty lines in the file. Each line with ! as the first character 
+!   will be explained as a comment line(just like this line). 
+!
+!   Between each line, one could add any lines of empty line
+!   or comments
+!   
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+!   KEYWORDS (common for most anaylysis tools): 
+!     &QUICKDAMP     indicate if damping to be performed before running analysis routine
+!                    = 1 for yes, =0 for no (default)
+!                    example: QUICKDAMP  1
+! 
+!     &QUICKDUMP     the same as &QUICKDAMP
+!
+!     &JOBSEL        indicate which TESTs (ref to user guid) to be included in analysis.
+!                    without this keyword, all TESTs will be analyzed.
+!
+!                    usage: &JOBSEL  J0, J1, JS
+!                           where J0 is the id of the frist TEST
+!                                 J1 is the id of the end  TEST
+!                                 JS is the intervale of the TESTs
+!
+!                    example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+!
+!     &CFGSEL        indicate which configurations to be included in analysis for included TESTs
+!                    without this keyword, all configurations will be analyzed.
+!
+!                    usage: &CFGSEL  C0, C1, CS
+!                           where C0 is the id of the frist configuration in a test
+!                                 C1 is the id of the end configuration in a test
+!                                 CS is the intervale of the configurations
+!
+!                    example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will included for analyzing
+!
+!***********************************************************************
+!   KEYWORDS(specific): 
+!   &AXSISX        the coordinate axsis X of simulation box, expressed by
+!                  Miller crystal index.
+!                  Without this input, X axsis will be (1,0,0)
+!   &AXSISY        the coordinate axsis Y of simulation box, expressed by
+!                  Miller crystal index
+!                  Without this input, Y axsis will be (0,1,0)
+!   &AXSISZ        the coordinate axsis Z of simulation box, expressed by
+!                  Miller crystal index
+!                  Without this input, Z axsis will be (0,0,1)
+!   &CPLEVELS      NL, level1, levl2, ...
+!                  where NL is the number of thresholds of CSP values, which
+!                  can be used to distinguish atoms. This could be useful 
+!                  for visualization. Without this input,
+!                  the atoms will not be distinguished by CSP values.
+!   CAL_CPAV       the time steps for output average CSP, if the parameter < 0 
+!                  no average of CSPs will be output
+!
+!***********************************************************************
+&AXSISX  ( 1, 1, 1)
+&AXSISY  ( -1, 1, 0)
+&AXSISZ  ( 1, 1, -2)
+&QUICKDAMP 1
+&CPLEVELS = 4,  0.75, 1.0, 1.5, 2.0
+&CAL_CPAV  Time steps for output average CSP = 1  ! if <=0 no average of CSPs will be output

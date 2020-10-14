@@ -1,0 +1,106 @@
+!***********************************************************************
+!   This is a sample file of control file of running PropCluster 
+!   applications. The atoms will be clustered by theire given 
+!   properties and connection in space. 
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+!   KEYWORDS (common for most anaylysis tools): 
+!     &QUICKDAMP     indicate if damping to be performed before running analysis routine
+!                    = 1 for yes, =0 for no (default)
+!                    example: QUICKDAMP  1
+! 
+!     &QUICKDUMP     the same as &QUICKDAMP
+!
+!     &JOBSEL        indicate which TESTs (ref to user guid) to be included in analysis.
+!                    without this keyword, all TESTs will be analyzed.
+!
+!                    usage: &JOBSEL  J0, J1, JS
+!                           where J0 is the id of the frist TEST
+!                                 J1 is the id of the end  TEST
+!                                 JS is the intervale of the TESTs
+!
+!                    example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+!
+!     &CFGSEL        indicate which configurations to be included in analysis for included TESTs
+!                    without this keyword, all configurations will be analyzed.
+!
+!                    usage: &CFGSEL  C0, C1, CS
+!                           where C0 is the id of the frist configuration in a test
+!                                 C1 is the id of the end configuration in a test
+!                                 CS is the intervale of the configurations
+!
+!                    example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will included for analyzing
+!
+!***********************************************************************
+!   KEYWORDS (specific): 
+!     &METHOD       indicate which method to be used to determine the connection
+!                   between atoms.
+!
+!                   usage: &METHOD  name parameters
+!                          where name is a string "USEDT" (default) or "USEBD". 
+!                          If name = "USEDT", the connection to be determined by Delaunay tessllation.
+!                             If a string "SAVE_DV" appears after "USEDT", the intermediate result
+!                             of Delaunay vertices will be output to a file (this could be time consuming).  
+!                          If name = "USEBD", the bond length will be used to determine the connections.
+!                             If without parameter, the bond length will be the force cutoff distance;
+!                             If the parameter is a real number, then the parameter will be used
+!                             as the bond length. The input bond length is in latticed unit.
+!                   example1: &METHOD "USEDT"
+!                   example2: &METHOD "USEBD"  1.0 (LU)
+!
+!     &SAVE_DV      indicate if the intermediate result of Delaunay vertices will be output to a file.
+!                   This parameter takes effect only the METHOD is "USEDT" (default). 
+!
+!                   usage: &SAVE_DV  value 
+!                   example1: &SAVE_DV 0, indicating without saving Delaunay vertices
+!                   example2: &SAVE_DV 1, indicating Delaunay vertices to be saved
+! 
+!     &SAVE_VOL     indicate if the envelope volume of the clusters to be output
+!
+!                   usage: &SAVE_VOL  value 
+!                   example1: &SAVE_VOL 0, indicating the volume to be NOT saved
+!                   example2: &SAVE_VOL 1, indicating the volume to be calculated and saved
+!
+!     &PROP_TYPE    indicating the type(s) of atoms will in used in clustering and
+!                   the program will checking if type of atoms are available. 
+!                   Without this keyword, the checking will not performed.
+!
+!                   usage:  &PROP_TYPE typ1, type2.
+!                   example:&PROP_TYPE 2, 4, indicating atoms of type 2 and type 4 will be
+!                           used in clustering.  
+!
+!     &PROP_EPOT    indicating the potential(s) of atoms will in used in clusteringand
+!                   the program will checking if potential of atoms are available. 
+!                   Without this keyword, the checking will not performed.
+!
+!                   usage: &PROP_EPOT ( E0, E1 ), ( E2, E3 )...
+!                          where the parameters E0, E1... (in eV) define a number of energy range 
+!                          that could be used in clustering.
+!                   example:&PROP_EPOT ( 0.1, 0.5 ), ( 1.5, 1.8)...
+!
+!     &PROP_EKIN    indicating the kinetic energy(s) of atoms will in used in clusteringand
+!                   the program will checking if kinetic energy(s) of atoms are available. 
+!                   Without this keyword, the checking will not performed.
+!
+!                   usage: &PROP_EPOT ( K0, K1 ), ( K2, K3 )...
+!                          where the parameters K0, K1... (in eV) define a number of energy range 
+!                          that could be used in clustering.
+!                   example:&PROP_EKIN ( 0.1, 0.5 ), ( 1.5, 1.8)...
+!
+!     &PROP_XXX     indicating the property XXX of atoms will in used in clusteringand
+!                   the program will checking if date of property XXX of atoms are available. 
+!
+!     &AUXF_PCLSOUT indicating the file name of the output data
+
+!&METHOD         "USEBD"    0.6   (LU)
+&METHOD         "USEDT"    0.6   (LU)
+&PROP_TYPE type to be used in clustering = 2
+&AUXF_PCLSOUT output file              = "Cluster_"  
+&SAVE_DV  = 0
+&SAVE_VOL = 1

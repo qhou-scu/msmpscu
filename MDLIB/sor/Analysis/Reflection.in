@@ -1,0 +1,87 @@
+!***********************************************************************
+!   This is a sample file of control file of running Reflection application.
+!   Reflection application is used to extract the refelction and transmission
+!   coefficeints of energic atoms on a surface 
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+!   KEYWORDS (common for most anaylysis tools): 
+!     &QUICKDAMP     indicate if damping to be performed before running analysis routine
+!                    = 1 for yes, =0 for no (default)
+!                    example: QUICKDAMP  1
+! 
+!     &QUICKDUMP     the same as &QUICKDAMP
+!
+!     &JOBSEL        indicate which TESTs (ref to user guid) to be included in analysis.
+!                    without this keyword, all TESTs will be analyzed.
+!
+!                    usage: &JOBSEL  J0, J1, JS
+!                           where J0 is the id of the frist TEST
+!                                 J1 is the id of the end  TEST
+!                                 JS is the intervale of the TESTs
+!
+!                    example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+!
+!     &CFGSEL        indicate which configurations to be included in analysis for included TESTs
+!                    without this keyword, all configurations will be analyzed.
+!
+!                    usage: &CFGSEL  C0, C1, CS
+!                           where C0 is the id of the frist configuration in a test
+!                                 C1 is the id of the end configuration in a test
+!                                 CS is the intervale of the configurations
+!
+!                    example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will included for analyzing
+!
+!***********************************************************************
+!   KEYWORDS (specific): 
+!                    &PROP_TYPE    indicating the atomic type(s) of projectiles
+!
+!                                  usage:  &PROP_TYPE typ1, type2.
+!                                  example:&PROP_TYPE 2, 4, indicating atoms of type 2 and type 4 are projectiles
+!
+!
+!                    &DEPTDIS      indicate the position of upper and low surfaces.
+!
+!                                  usage: &BOUND  z1, z2, nbin
+!                                  where z1 is the position of the upper surface in lattice unit,
+!                                        z2 is the position of the lower surface in lattice unit,
+!                                        nbin is number of bins for histogram of depth distribution
+!
+!                                  example: &DEPTDIS  z1 = 10, z2 = -10, nbin= 100
+!
+!                    &RSPECT       control parameters for reflection energy spectrum
+!
+!                                  usage: &RSPECT  emin, emax, nbin
+!                                  where emin and emax define the energy range for the energy spectrum.
+!                                         nbin is number of bins for histogram of the energy spectrum.
+!
+!                                  example: &RSPECT  0, 10, 32
+!
+!
+!                    &TSPECT       control parameters for transmission energy spectrum
+!
+!                                  usage: &TSPECT  emin, emax, nbin
+!                                  where emin and emax define the energy range for the energy spectrum.
+!                                         nbin is number of bins for histogram of the energy spectrum.
+!
+!                                  example: &TSPECT  0, 10, 32
+!
+!                    &NUMPROJ      control parameters for permitted number of projectiles in each box.
+!                                  the default value is 1.  
+!
+!                                  usage: &NUMPROJ num
+!                                  where  num define the number of projectile in each box.
+!
+!                                  example: &NUMPROJ 2
+
+ &PROP_TYPE = 1
+ &DEPTDIS   = 10, -10,  20
+ &RSPECT    = 0, 10, 32
+ &TSPECT    = 0, 10, 32  
+ &NUMPROJ   = 1   
+ 

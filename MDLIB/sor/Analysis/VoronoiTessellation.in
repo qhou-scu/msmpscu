@@ -1,0 +1,76 @@
+!***********************************************************************
+!   This is a sample file of control file of running Voronoi tessellation 
+!   application. 
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+
+!**********
+!   KEYWORDS (common for most anaylysis tools): 
+!     &QUICKDAMP     indicate if damping to be performed before running analysis routine
+!                    = 1 for yes, =0 for no (default)
+!                    example: QUICKDAMP  1
+! 
+!     &QUICKDUMP     the same as &QUICKDAMP
+!
+!     &JOBSEL        indicate which TESTs (ref to user guid) to be included in analysis.
+!                    without this keyword, all TESTs will be analyzed.
+!
+!                    usage: &JOBSEL  J0, J1, JS
+!                           where J0 is the id of the frist TEST
+!                                 J1 is the id of the end  TEST
+!                                 JS is the intervale of the TESTs
+!
+!                    example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+!
+!     &CFGSEL        indicate which configurations to be included in analysis for included TESTs
+!                    without this keyword, all configurations will be analyzed.
+!
+!                    usage: &CFGSEL  C0, C1, CS
+!                           where C0 is the id of the frist configuration in a test
+!                                 C1 is the id of the end configuration in a test
+!                                 CS is the intervale of the configurations
+!
+!                    example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will included for analyzing
+!
+!***********************************************************************
+!   KEYWORDS (specific): 
+!     &SAVE_VOL   indicating if the Voronoi volumes of atoms will be calculated 
+!                 and out put =1 for yes, =0 for no.
+!                 By default , the parameter is 1.
+!       
+!     &SAVE_VV    indicating if the Voronoi vertice of atoms will be svaed to file(s).
+!                 = 1 for yes, = 0 for no.
+!                  By default , the parameter is 0.
+!
+!     &SAVE_DV    indicating if the Delaunay vertice of atoms will be saved to file(s).
+!                 = 1 for yes, = 0 for no 
+!                 By default , the parameter is 0.
+!
+!     &SAVE_SIG   indicating if the structure singatures of atoms will be saved to file(s).
+!                 = 1 for yes, = 0 for no 
+!                 By default , the parameter is 0.
+!
+!     &MXFACE     the parameter controling the max permitted number of faces of a Voronoi 
+!                 volume. This parameter has effects on the memory needed for in calculation.
+!                 By default , the parameter is 40.
+!
+!     &MXVERT     the parameter controling the max permitted number of vertice of a Voronoi 
+!                 volume. This parameter has effects on the memory needed for in calculation.
+!                 The parameter of MXVERT should be larger than MXFACE.
+!                 By default , the parameter is 40.
+!
+!    &AUXF_VTO    the filename of output results 
+!
+
+&SAVE_VOL save Voronoi volume for atoms = 1, 
+&SAVE_VV  save intermediate Voronoi vertice =  0, 
+&SAVE_DV  save intermediate Delaunay vertice = 1, 
+&SAVE_SIG  save signature = 1, 
+&MXFACE   max number of faces      = 40
+&MXVERT   max number of vertice    = 40
+&AUXF_VTO output file              = "RefVVA"  

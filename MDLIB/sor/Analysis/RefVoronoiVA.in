@@ -1,0 +1,87 @@
+!***********************************************************************
+!   This is a sample file of control file of running RefVoronoiVATool. 
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+!   KEYWORDS (common for most anaylysis tools): 
+!     &QUICKDAMP     indicate if damping to be performed before running analysis routine
+!                    = 1 for yes, =0 for no (default)
+!                    example: QUICKDAMP  1
+! 
+!     &QUICKDUMP     the same as &QUICKDAMP
+!
+!     &JOBSEL        indicate which TESTs (ref to user guid) to be included in analysis.
+!                    without this keyword, all TESTs will be analyzed.
+!
+!                    usage: &JOBSEL  J0, J1, JS
+!                           where J0 is the id of the frist TEST
+!                                 J1 is the id of the end  TEST
+!                                 JS is the intervale of the TESTs
+!
+!                    example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+!
+!     &CFGSEL        indicate which configurations to be included in analysis for included TESTs
+!                    without this keyword, all configurations will be analyzed.
+!
+!                    usage: &CFGSEL  C0, C1, CS
+!                           where C0 is the id of the frist configuration in a test
+!                                 C1 is the id of the end configuration in a test
+!                                 CS is the intervale of the configurations
+!
+!                    example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will included for analyzing
+!
+!***********************************************************************
+!   KEYWORDS (specific): 
+!
+!     &REFCFG        indication of the filename of the reference configurqation.
+!                    if the reference configuration is not assigned explicitly, 
+!                    the configuration at zero time step will be the reference
+!                    configuration.
+!
+!                    usage:   &REFCFG filename
+!
+!                    example: &REFCFG "Myreference.crystal"
+!
+!     &METHOD        indication of the method used to identify the occupation 
+!                    of the reference sites. 
+!
+!                    usage:   &METHOD = name rad
+!                             where name is a string "USEVT" (default) or "USEST". 
+!                             If name = "USEVT", a site is indentified as occupied if there is 
+!                                one or more atoms is closer to the site than to other sites.
+!                                the site is actually a Voronoi site.  
+!                             If name = "USEST", a site is identified as occupied if ther is 
+!                                an atom is in a sphere region of given raidu cenered by the 
+!                                site. rad is the raidu of the sphere region.
+!                    example1: &METHOD "USEVT"
+!                    example2: &METHOD "USEST"  rad
+!
+!     &CALFOR        indication if local force to be also calculated and output
+!                    = 0 for no (default), = 1 for yes
+!                    This parameter take  effects only when METHOS is "USEVT"
+!
+!     &CALPOT        indication if local potential to be also calculated and output 
+!                    = 0 for no (default), = 1 for yes
+!                    This parameter take  effects only when METHOS is "USEVT"
+!
+!     &CALKEN        indication if local kinetic energy to be also calculated and output 
+!                    = 0 for no (default), = 1 for yes
+!
+!                    This parameter take  effects only when METHOS is "USEVT"
+!     $CALSTRESS     indication if local stress to be also calculate and output
+!   
+!     &AUXF_RVVOUT   indicating of filename of for outputing results. If the filename is
+!                    given here, the filename2 (if given in SETUP file) will be replaced.
+!               
+!***********************************************************************
+!
+  
+ &REFCFG filename of the reference configuration =   "64800.cfg"
+ &CALPOT  1     
+ &CALKEN  1
+ &CALFOR  1

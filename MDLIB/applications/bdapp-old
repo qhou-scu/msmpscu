@@ -1,0 +1,63 @@
+cd $MDPSCUAPP
+
+#Create the directory for the applications
+if [ ! -d $WORKSPACE/applications ];then
+     mkdir $WORKSPACE/applications
+fi
+
+export libnames="Others  RandGenerators"
+export mdlibnames="CommonGPU  Common"
+export potlibnames="EM_TB_WangJun_W-HE_2010         \
+                    EM_TB_Ackland_Vitek_PRB41_10324 \
+                    EM_TB_AWB_PHIL_MAG_A71_1995_553 \
+                    EM_TB_Cleri_Rosato_PRB48_22"
+export utilibnames="Analysis Appshell Embedment Deposition" 
+
+
+if [ $# -lt 1 ]; then 
+     echo "Usage: build [-option] projectname"
+     echo "Options: "
+     echo "    -d           degug version"
+     echo "    -r(default)  release version"
+     echo "    -dc          clear degug version"
+     echo "    -rc          clear release version"
+fi
+
+if [ $# = 1 ]; then
+    export ConfigName="Release"
+    export oflags="-fast -tp sandybridge-64  -Mvect=sse,simd -Minline -Mconcur -Minform=warn -Minfo=accel,inline,intensity,loop,mp,opt,par,vect -Mcuda=fastmath,cuda5.5,cc35";
+    echo "Release version to be created"
+    echo "with comipling option: "$oflags
+    make -f "$1"
+fi
+
+if [ $# -ge 2 ]; then 
+    if [ "$1" = "-d" ]; then
+       export ConfigName="Debug"; 
+       export oflags="-g -Mcuda=fastmath,cuda5.5,cc35";
+       echo "Debug version to be created"
+       echo "with comipling option: "$oflags
+       make -f "$2"
+    fi
+
+    if [ "$1" = "-r" ]; then
+          export ConfigName="Release"
+          export oflags="-fast -tp sandybridge-64  -Mvect=sse,simd -Minline -Mconcur -Minform=warn -Minfo=accel,inline,intensity,loop,mp,opt,par,vect -Mcuda=fastmath,cuda5.5,cc35";
+          echo "Release version to be created"
+          echo "with comipling option: "$oflags
+          make -f "$2"
+    fi
+
+    if [ "$1" = "-dc" ]; then
+          export ConfigName="Debug"; 
+          make clean -f "$2"
+    fi
+
+    if [ "$1" = "-rc" ]; then
+          export ConfigName="Release"; 
+          make clean -f "$2"
+    fi
+
+fi
+
+

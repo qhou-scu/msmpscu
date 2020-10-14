@@ -1,0 +1,50 @@
+!***********************************************************************
+!   This is a sample file of control file of running MC_VisitLattice_HPC. 
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+!   KEYWORDS (common for most anaylysis tools): 
+!
+!***********************************************************************
+!   KEYWORDS (specific): 
+!
+!   &NUMTESTS      the number of tests.
+!                  Usage:     &NUMTESTS n
+!                  Example:   &NUMTESTS 10
+!                  
+!   &NUMEVENTS     the number of event steps in a test.
+!                  Usage:     &NUMEVENTS n
+!                  Example:   &NUMEVENTS 10000
+!                  
+!   &EVENTTIME     the average time for a occurrence of a events (in ps)
+!                  Usage:     &EVENTTIME t
+!                  Example:   &EVENTTIME 0.1 ps
+!                  
+!   &EVENTFRQ      the relative frequnce for the occurrence of types of  events
+!                  Usage:     &EVENTFRQ f1, f2, f3,...
+!                  Example:   &EVENTFRQ  1.0, 1.0, 0.5, 0.25
+!                  
+!   &OUTFILE       the filename for output data
+!                  Usage:     &OUTFILE fllename,...
+!                  Example:   &OUTFILE  "MC_test.out"
+!                  
+!   &SAVE_TRACK    the keyword to indicate if save migration track
+!                  Usage:     &SAVE_TRACK  "yes"/"no"
+!                  Example:   &SAVE_TRACK  "SAVE_TRACK"
+!                  Default:   "no"  
+!***********************************************************************
+!
+
+&NUMTESTS = 5000
+&NUMEVENTS = 625
+&EVENTTIME = 1.0 ps
+&EVENTFRQ  = 1.0, 1.0, 4.0, 6.0
+&BOXEXPAND = 31, 31, 31
+&OUTFILE = "Visit_TEST3D_625_full/Aniso_Test"
+
+ 
