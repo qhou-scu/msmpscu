@@ -1,0 +1,61 @@
+module DEV_RAND48_MODULE
+!*** This module contains routines to generating random numbers
+!*** NOTE: DRAND48 is supported only by 64bit compiler
+!         
+     implicit none
+       integer,  constant::dm_SIZE = 0  
+       integer(8), constant::dm_BIGRAND48_A,dm_BIGRAND48_C  
+       integer(8),constant::dm_T16, dm_T32, dm_T48
+       integer(8), device, dimension(:), allocatable::dm_SEEDS  
+       double precision,  device, dimension(:), allocatable::dm_R0  
+
+contains
+
+ 
+     
+!********************************************************************************
+      attributes(global) subroutine DEV_DRAND48(N, dR)
+      !*** To generate a random number
+      !    This is a FORTRAN version adopted from DRAND48 originally written in C.
+      !    Ref:   DRAND.TXT, and related Web page
+      !
+      !    See also:   DRAND48_PUTSEED  
+      !
+      !	   Author: HOU Qing, 2009-12
+      !    INPUT:no
+      !
+	       !integer(2),parameter::DRAND48_A(3)=(/58989,57068,5/), 
+           !integer(8), parameter::T16=65536, T32=4294967296, T48=281474976710656, DRAND48_A=25214903917, DRAND48_C=11
+           !--- dummy varaibles
+           integer, value:: N
+           real, dimension(*) :: dR
+
+           !--- LOCAL VARAIBLES
+           integer(4), value::X, T, T1, T2, T3 !4(3);
+           integer(2), value::XBIT(4), tBIT(4) !,aBIT(4)=0
+           !equivalence(X,XBIT)
+           !equivalence(T,tBIT)
+            
+            integer, value::i
+            
+            !the id of the random number
+            i = (blockidx%x-1) * blockdim%x + threadidx%x
+            !if(i .GT. dm_SIZE) return
+            !T =  dm_SEEDS(i)*dm_BIGRAND48_A + dm_BIGRAND48_C
+
+            !T4=0
+            !T4(3) = IOR(T4(3),tBIT(3))
+            !T4(2) = IOR(T4(2),tBIT(2))
+            !T4(1) = IOR(T4(1),tBIT(1))
+            
+            dR(i) = dble(T1) ! = dR(I) != T1 !0.50 !+T4(3)/T48 !+T4(2)/dm_T32+T4(1)/dm_T16
+            !dm_R0(I) = 0.5D0+dble(T4(3))/dble(dm_T48)+dble(T4(2))/dble(dm_T32)+dble(T4(1))/dble(dm_T16)
+            dm_SEEDS(I) = T
+          
+          return
+      end subroutine DEV_DRAND48
+!********************************************************************************
+      
+
+
+end module DEV_RAND48_MODULE

@@ -1,0 +1,42 @@
+      module MiniUtilities
+!---- This module is used to wrap a number of old
+!     Fortran 77 routines
+      contains
+
+        include "ARRTOSTR.F         " 
+        include "AvailableIOUnit.F  "
+        include "CATSTR.F           "
+        !include "CLOCK1.F           "
+        include "COMBSTR.F          "
+        !include "CONTOUR1.F         "
+        include "CSTRTOF.F          "
+        include "DINTF2.F           "
+        include "DRSTR.F            "
+        include "DTOS.F             "
+        include "EXNUMB.F           "
+        include "EXOPTSTR.F         "
+        include "EXSUBSTR.F         "
+        include "EXSUBSTR1.F        "
+        include "FINDMVAL.F         "
+        include "FSTRROC.F          "
+        include "GETFNAME.F         "
+        include "GETINPUTSTRLINE.F  "
+        include "GETKEYWORD.F       "
+        include "GETPATH.F          "
+        include "ISTR.F             "
+        include "LOWCASE.F          "
+        include "NBIT1.F            "
+        include "NSTOKEN.F          "
+        !include "NTHPOW.F           "
+        include "NTOKENS.F          "
+        include "ONWARNING.F        "
+        include "RSTR.F             "
+        !include "RTOSTR.F           "
+        include "SORT.F             "
+        include "STOD.F             "
+        include "STRCATI.F          "
+        include "TIMER.F            "
+        include "TOFNAME.F          "
+        include "UPCASE.F           "
+
+      end module MiniUtilities

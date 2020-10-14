@@ -1,0 +1,474 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+MENUMAIN MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        101
+        MENUITEM "&Open",                       102
+        MENUITEM "&Save",                       103, GRAYED
+        MENUITEM "Save &As...",                 104, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...",                   107, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       150
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t",                        201, GRAYED
+        MENUITEM "&Copy",                       202, GRAYED
+        MENUITEM "&Paste",                      203, GRAYED
+        MENUITEM "&Delete",                     204, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Figure properties...",        205, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Curve properties...",        206, GRAYED
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&New Window",                 9010
+        MENUITEM "&Cascade",                    901
+        MENUITEM "&Tile",                       902
+        MENUITEM "Close Al&l",                  903
+        MENUITEM "&Arrange Icon",               904
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      1001
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+DLG_ABOUT DIALOGEX 0, 0, 176, 99
+STYLE DS_ABSALIGN | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "About PANDA"
+FONT 10, "System", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,112,78,50,14
+    CONTROL         "PANDA1",IDC_STATIC,"Static",SS_BITMAP | SS_CENTERIMAGE,
+                    9,11,31,29,WS_EX_DLGMODALFRAME
+    CONTROL         "Copy Right: Sichuan University",IDC_STATIC,"Static",
+                    SS_SIMPLE | WS_GROUP,49,29,122,8
+    CONTROL         "PANDA ver 1.0 (1996-1997)",IDC_STATIC,"Static",
+                    SS_SIMPLE | WS_GROUP,49,12,122,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,0,70,171,1
+    CONTROL         "Authors: Hou Qing ",IDC_STATIC,"Static",SS_SIMPLE | 
+                    WS_GROUP,49,44,71,8
+    CONTROL         "Luo Zheng-ming",IDC_STATIC,"Static",SS_SIMPLE | 
+                    WS_GROUP,78,54,66,8
+END
+
+DLG_ADDCURVE DIALOG DISCARDABLE  0, 0, 331, 233
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Get curve data"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,272,11,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,272,27,50,14
+    CONTROL         "X:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,23,
+                    62,8,9
+    GROUPBOX        "Data Sheet",IDC_STATIC,7,44,241,172
+    EDITTEXT        104,33,60,80,14,ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "Y:",IDC_STATIC,124,62,8,9
+    EDITTEXT        105,135,60,80,14,ES_AUTOHSCROLL | ES_WANTRETURN
+    LISTBOX         106,21,82,219,126,LBS_SORT | LBS_MULTIPLESEL | 
+                    LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    GROUPBOX        "Data input mode",IDC_STATIC,7,7,241,33
+    CONTROL         "Manual",101,"Button",BS_AUTORADIOBUTTON,14,20,56,10
+    CONTROL         "From File",102,"Button",BS_AUTORADIOBUTTON,92,21,56,10
+    PUSHBUTTON      "Load from File....",103,161,19,78,13,NOT WS_VISIBLE
+    PUSHBUTTON      "Cut",201,272,66,50,14
+    PUSHBUTTON      "Copy",202,272,84,50,14
+    PUSHBUTTON      "Paste",203,272,103,50,14
+END
+
+DLG_EXPORTCURVE DIALOG DISCARDABLE  0, 0, 331, 233
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Export curve data to file"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,272,11,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,272,27,50,14
+    LISTBOX         106,26,65,211,143,LBS_SORT | LBS_MULTIPLESEL | 
+                    LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        405,26,26,209,173,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "Data View:",IDC_STATIC,23,55,172,9
+    PUSHBUTTON      "Cut",201,272,66,50,14
+    PUSHBUTTON      "Copy",202,272,84,50,14
+    PUSHBUTTON      "Paste",203,272,103,50,14
+    PUSHBUTTON      "Export to...",103,272,122,50,14
+    GROUPBOX        "Curve to be exported:",IDC_STATIC,18,7,228,210
+END
+
+DLG_TOOL1 DIALOGEX 0, 0, 360, 46
+STYLE DS_ABSALIGN | DS_SYSMODAL | DS_MODALFRAME | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Button1",301,"Button",BS_OWNERDRAW | WS_TABSTOP,7,7,23,
+                    18
+    CONTROL         "Button1",302,"Button",BS_OWNERDRAW | WS_TABSTOP,31,7,23,
+                    18
+    CONTROL         "Button1",303,"Button",BS_OWNERDRAW | WS_TABSTOP,55,7,23,
+                    18
+    CONTROL         "Button1",801,"Button",BS_OWNERDRAW | WS_DISABLED | 
+                    WS_TABSTOP,84,7,23,18
+    CONTROL         "Button1",804,"Button",BS_OWNERDRAW | WS_DISABLED | 
+                    WS_TABSTOP,107,7,23,18
+    COMBOBOX        101,161,9,109,105,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_NOPARENTNOTIFY
+    CONTROL         "Button1",806,"Button",BS_OWNERDRAW | WS_DISABLED | 
+                    WS_TABSTOP,131,7,23,18
+    CONTROL         "Button1",8000,"Button",BS_OWNERDRAW | WS_DISABLED | 
+                    WS_TABSTOP,277,7,23,18
+END
+
+DLG_FIGPROPERTY1 DIALOG DISCARDABLE  0, 0, 415, 258
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Figure properties"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Type of Axsis",IDC_STATIC,163,40,83,57
+    CONTROL         "Linear",201,"Button",BS_AUTORADIOBUTTON | WS_GROUP,170,
+                    52,36,11
+    CONTROL         "Log",202,"Button",BS_AUTORADIOBUTTON,169,68,32,11
+    GROUPBOX        "Style",IDC_STATIC,7,103,203,145
+    GROUPBOX        "Range of axsis",IDC_STATIC,7,40,145,57
+    LTEXT           "Minima:",IDC_STATIC,17,52,28,9
+    LTEXT           "Maxma:",IDC_STATIC,17,66,28,9
+    LTEXT           "Step:",IDC_STATIC,17,81,28,9
+    EDITTEXT        103,46,51,53,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        104,46,65,53,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        105,46,80,53,13,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Width(mm):",IDC_STATIC,263,52,38,10
+    EDITTEXT        301,304,51,45,13,ES_AUTOHSCROLL
+    LTEXT           "Thick(mm):",IDC_STATIC,263,71,36,9
+    EDITTEXT        302,303,68,46,13,ES_AUTOHSCROLL
+    LTEXT           "Color:",IDC_STATIC,13,116,24,9
+    COMBOBOX        401,39,114,121,63,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Thick of tick(mm):",IDC_STATIC,229,117,59,9
+    EDITTEXT        501,303,115,46,13,ES_AUTOHSCROLL
+    LTEXT           "Size of tick(mm):",IDC_STATIC,229,134,59,9
+    EDITTEXT        502,303,131,46,13,ES_AUTOHSCROLL
+    LTEXT           "Number of  minitick:",IDC_STATIC,230,148,64,9
+    EDITTEXT        503,303,147,46,13,ES_AUTOHSCROLL
+    LTEXT           "Size of minitick(mm):",IDC_STATIC,229,180,64,9
+    EDITTEXT        505,303,179,45,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",4021,190,136,13,13,WS_DISABLED
+    PUSHBUTTON      "...",4031,190,169,13,13,WS_DISABLED
+    CONTROL         "Labeled",402,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,
+                    136,39,12
+    CONTROL         "Titled",403,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,
+                    170,39,12
+    EDITTEXT        4022,105,136,86,13,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "Intersect  ",404,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    17,203,41,11
+    CONTROL         "Direction inverse",405,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,17,217,71,11
+    GROUPBOX        "Tick",IDC_STATIC,221,103,142,145
+    LTEXT           "Thick of minitick(mm):",IDC_STATIC,230,164,69,9
+    EDITTEXT        504,303,163,46,13,ES_AUTOHSCROLL
+    GROUPBOX        "Size",IDC_STATIC,256,40,107,57
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,1,34,414,1
+    COMBOBOX        100,7,18,92,83,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "OK",IDOK,265,18,45,13
+    PUSHBUTTON      "Cancel",IDCANCEL,313,18,45,13
+    PUSHBUTTON      "Help",IDHELP,361,18,45,13
+    CONTROL         "Auto",101,"Button",BS_AUTORADIOBUTTON | WS_GROUP,109,52,
+                    31,10
+    CONTROL         "Manul",102,"Button",BS_AUTORADIOBUTTON,109,68,35,10
+    CONTROL         "Grided",407,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,
+                    232,42,10
+    PUSHBUTTON      "Grid options...",4071,105,230,65,13
+    CONTROL         "Visible",99,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,105,
+                    19,37,11
+    CONTROL         "Same as  bottom  X",98,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,143,19,83,11
+    LTEXT           "Format:",IDC_STATIC,66,138,24,9
+    LTEXT           "Title:",IDC_STATIC,65,172,24,9
+    EDITTEXT        4032,105,169,85,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        4041,105,202,85,13,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Offset(mm):",IDC_STATIC,65,152,37,9
+    EDITTEXT        4023,105,150,86,13,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Offset(mm):",IDC_STATIC,65,185,36,9
+    EDITTEXT        4033,105,184,85,13,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "at:",IDC_STATIC,63,204,36,9
+END
+
+DLG_CURVEPROPERTY1 DIALOG DISCARDABLE  0, 0, 415, 202
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Curve properties"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Thick(mm):",IDC_STATIC,17,71,36,9
+    EDITTEXT        103,61,68,61,14,ES_AUTOHSCROLL
+    LTEXT           "Color:",IDC_STATIC,17,88,24,9
+    COMBOBOX        104,61,86,61,93,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Visible",101,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,
+                    54,34,12
+    CONTROL         "Smoothed",102,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,63,
+                    55,51,12
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,1,34,414,1
+    COMBOBOX        100,40,18,178,140,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "OK",IDOK,265,18,45,13
+    PUSHBUTTON      "Cancel",IDCANCEL,313,18,45,13
+    PUSHBUTTON      "Help",IDHELP,361,18,45,13
+    LTEXT           "Style:",IDC_STATIC,18,105,19,9
+    COMBOBOX        105,61,104,62,102,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Curve:",IDC_STATIC,9,20,30,11
+    GROUPBOX        "Line",IDC_STATIC,7,43,124,112
+    GROUPBOX        "Symbol",IDC_STATIC,138,43,144,112
+    CONTROL         "Visible",201,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,148,
+                    55,34,12
+    PUSHBUTTON      "...",2031,252,94,14,15
+    LTEXT           "Symbol:",IDC_STATIC,216,84,26,9
+    COMBOBOX        202,213,55,58,63,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Color:",IDC_STATIC,190,57,20,9
+    COMBOBOX        203,217,95,35,94,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Legend",IDC_STATIC,288,43,119,112
+    CONTROL         "Visible",301,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,296,
+                    55,34,12
+    LTEXT           "Legend:",IDC_STATIC,296,70,30,9
+    EDITTEXT        302,325,68,74,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,166,413,1
+    PUSHBUTTON      "Data...",401,333,174,75,16
+    CONTROL         "Number",2032,"Button",BS_AUTORADIOBUTTON,152,84,43,9
+    CONTROL         "Char",2033,"Button",BS_AUTORADIOBUTTON,152,96,43,9
+    CONTROL         "Symbol",2034,"Button",BS_AUTORADIOBUTTON,152,108,43,9
+    GROUPBOX        "Type",IDC_STATIC,147,73,125,56
+    LTEXT           "Size(mm):",IDC_STATIC,149,134,35,9
+    EDITTEXT        204,185,132,40,13,ES_AUTOHSCROLL
+END
+
+DLG_EXPRESS DIALOG DISCARDABLE  0, 0, 298, 126
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Trasformation"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,241,17,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,241,34,50,14
+    LTEXT           "Input the express:",IDC_STATIC,7,7,111,11
+    EDITTEXT        IDC_EDIT1,7,17,214,32,ES_MULTILINE | WS_VSCROLL
+    LTEXT           "Variable range:",IDC_STATIC,144,56,56,12
+    LTEXT           "Variables:",IDC_STATIC,10,55,54,9
+    LISTBOX         IDC_LIST1,8,65,127,43,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "From:",IDC_STATIC,145,73,20,10
+    LTEXT           "To:",IDC_STATIC,146,94,20,10
+    EDITTEXT        IDC_EDIT2,167,72,56,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,167,91,56,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    "DLG_ABOUT", DIALOG
+    BEGIN
+        RIGHTMARGIN, 171
+        VERTGUIDE, 49
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 92
+    END
+
+    "DLG_ADDCURVE", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 324
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 226
+    END
+
+    "DLG_EXPORTCURVE", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 324
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 226
+    END
+
+    "DLG_TOOL1", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 353
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 39
+    END
+
+    "DLG_FIGPROPERTY1", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 408
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 246
+    END
+
+    "DLG_CURVEPROPERTY1", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 408
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 190
+    END
+
+    "DLG_EXPRESS", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 291
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 119
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+OK2                     BITMAP  DISCARDABLE     "bitmap1.bmp"
+OK1                     BITMAP  DISCARDABLE     "ok3.bmp"
+HAND1                   BITMAP  DISCARDABLE     "bmp00008.bmp"
+ARROW1                  BITMAP  DISCARDABLE     "bmp00009.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+DLG_FIGPROPERTY1 DLGINIT
+BEGIN
+    100, 0x403, 1, 0
+"\000" 
+    0
+END
+
+DLG_CURVEPROPERTY1 DLGINIT
+BEGIN
+    100, 0x403, 1, 0
+"\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERROR               "Error"
+    IDS_WARNING             "Warning"
+    IDS_PCLICKMSG           "Click this button to prepare the incident particle."
+    IDS_TCLICKMSG           "Click this button to prepare the target ."
+    IDS_BCLICKMSG           "Click this button to prepare the incident condition."
+    IDS_Bempty              "No more beam in the beam table. you may add more."
+    IDS_StartCLICKMSG       "Click this button to start the job."
+    IDS_PCLICKMSGOK         "Click this button to view particle parameters."
+    IDS_TCLICKMSGOK         "Click this button to view  target parameters."
+    IDS_NextCLICKMSG        "Click this button to goto the next beam."
+    IDS_ViewCLICKMSG        "Click this button to view results..."
+    IDS_SUMMARY             "Summary:"
+    IDS_PARTCLE             "   Incident Particle:"
+    IDS_Target              "   Target:"
+    IDS_INPROCESS           "Progres in process..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_Init                "    Initialize the kernal..."
+    IDS_InitJob             "    Initialize the job..."
+    IDS_InitCSDA            "    Initialize the CSDA range-energy relation..."
+    IDS_InitSCT             "    Initialize the scattering parameter-energy relation, please waiting..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

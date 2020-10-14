@@ -1,0 +1,49 @@
+#compiler
+ifeq ($(origin comp), undefined) 
+comp       = pgfortran
+endif
+
+ifeq ($(origin oflags), undefined)
+oflags := -fast
+endif
+
+##########################################################
+#sorce directories
+ifeq ($(origin LIBDIRS), undefined) 
+LIBDIRS := $(MDPSCUSOR)/LIB/f/
+endif
+sor  := $(LIBDIRS)/Others/
+
+#target directories
+ifeq ($(origin ConfigName), undefined) 
+ConfigName := Release
+endif
+
+ifeq ($(origin LIBDIRD), undefined) 
+LIBDIRD := $(WORKSPACE)/LIB/$(ConfigName)
+endif
+tgt  := $(LIBDIRD)
+
+nlist  :=   ARRTOSTR  AvailableIOUnit CATSTR CLOCK1 COMBSTR  \
+            CONTOUR1  CSTRTOF D1MACH DINTF2 DMOUT DRSTR      \
+            DTOS  DVOUT EXNUMB EXOPTSTR EXSUBSTR1 EXSUBSTR   \
+            FDUMP FINDMVAL FSTRROC GETKEYWORD GETFNAME       \
+            GETINPUTSTRLINE GETPATH I1MACH ISTR IVOUT        \
+            J4SAVE LOWCASE NBIT1 NSTOKEN NTHPOW              \
+            NTOKENS ONWARNING R1MACH RSTR RTOSTR STOD        \
+            STRCATI TIMER TOFNAME UPCASE XERCNT              \
+            XERHLT XERMSG XERPRN XERSVE XGETUA
+modules  := $(foreach n, $(nlist), $(tgt)$(n).mod)
+objects  := $(foreach n, $(nlist), $(tgt)$(n).o)
+ffiles   := $(foreach n, $(nlist), $(sor)$(n).f)
+Ffiles   := $(foreach n, $(nlist), $(sor)$(n).F)
+
+libname  := $(tgt)libOthers.a
+##########################################################
+$(libname) : $(objects)
+	ar -rcs $(libname) $(objects) 
+
+$(tgt)%.o : $(sor)%.F
+	$(comp) -c $(oflags)  $< -o $@
+clean:
+	-rm $(objects) $(libname)
