@@ -1,0 +1,145 @@
+ !***********************************************************************
+ !
+ !   This file describes the format of control file for 
+ !   NEB simulations. 
+ !
+ !   In comparison with the control file for generic MD, 
+ !   &SECTSUBCTL subsection is discarded. Instead, &BOUNDSUBCTL
+ !   and &NEIGHBSUBCTL subsection, which are embeded in &SECTSUBCTL 
+ !   subsection in GMD control file, are used. 
+ !   Specific notes should be given to the keywords: 
+ !     &CTLF:NEB
+ !     &NEBSUBCTL
+ !   
+ ! 
+ !   You can write comments and empty lines in the file. 
+ !   Each line strating with ! will be explained as a 
+ !   comment line(just like this line). 
+ !
+ !   In the front of the parameters, discription could be added. 
+ !   The seperator between the parameters and the discription is 
+ !   = or space.  Between each line, one could add empty lines or
+ !   or comments
+ !   ___________________________________________________________
+ !   FORMAT:
+ !
+ !       &CTLF:NEB
+ !         &[keyword of subsection]
+ !           &[keyword of parameter1]  parameter= ...
+ !           &[keyword of parameter2]  parameter= ...
+ !           &[keyword of sub-subsection]
+ !             &[keyword of parameter3]  parameter= ...     
+ !               ...
+ !             &ENDSUBCTL
+ !           ...   
+ !         &ENDSUBCTL
+ !       &ENDCTL
+
+ !   The input section should be started with keyword:
+ !    "&CTLF:NEB", or "&CTLF-NEB", or "&CTLF_NEB", 
+ !   and ended with "&ENDCTL". The input section contains a set
+ !   of subsections whith started with keyword for the subsection
+ !   and ended with keyword "&ENDSUBCTL". If a keyword dose not
+ !   appear, default value for that parameter(s) will be used
+!
+ !  ___________________________________________________________
+ !   KEYWORDS LIST of subsection:
+ !       &COMMSUBCTL    -  indicate start of subsection of parameters about rand number seed, box number etc
+ !       &POTENSUBCTL   -  indicate start of subsection of potential cutoff parameters 
+ !       &BOUNDSUBCTL   -  indicate the start of subsection of parameters of boundary condition
+ !       &NEIGHBSUBCTL  -  indicate the start of subsection of parameters for neighbor-list
+ !       &NEBSUBCTL     -  indicate start of subsection of parameter 
+ !       &ENDSUBCTL     -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of COMMSUBCTL subsection:
+ !      &COMMSUBCTL    - indicate the start of this subsection of control parameters
+ !         &BOXS       - indicate input of parameters controling the number of boxes.
+ !                       3 parameters required.
+ !
+ !                       usage:     &BOXS mb  tb ind
+ !                                  mb - integer, the number of boxes in one 'test'
+ !                                  tb - integer, the number of all box in a run
+ !                                  ind- integer, indicate if all boxes are independent from each other 
+ !                                  1 for yes, 0 for no
+ !                        example:  &BOXS  mb= 100, tb= 1000, independent = 1
+ !                        
+ !         &RANDSEED   -  random number seed 
+ ! 
+ !                        usage:    &RANDSEED num
+ !                        example:  &RANDSEED 123456
+ !
+ !      &ENDSUBCTL     -  indicate end of a subsection 
+
+ !  ___________________________________________________________
+ !   KEYWORDS of POTENSUBCTL subsection:
+ !      &POTENSUBCTL    - indicate the start of this subsection of control parameters
+ !         &CUTOFF      - indicate the input of cutoff distance in force calculations
+ !                        usage: &CUTOFF  dist
+ !                               dist - real, the cutoff distance in lattice unit
+ !         &TABLESIZE   - indicate the input of size of potential and force table 
+ !                        usage: &TABLESIZE  num
+ !                               num - integer, the number of grids of force tables
+ !      &ENDSUBCTL 
+
+ !  ___________________________________________________________
+ !   KEYWORDS of BOUNDSUBCTL subsection:
+ !      &BOUNDSUBCTL  - indicate the start of this subsection
+ !        &PERIDIC    - indicate input peridic conditions in X, Y, Z direction
+ !                      usage: &PERIDIC  px, py, pz
+ !                             px - integer, 1 periodic boundary condition to be applied in x direction
+ !                                           0 no periodic boundary condition to be applied in x direction
+ !                             py - integer, 1 periodic boundary condition to be applied in y direction
+ !                                           0 no periodic boundary condition to be applied in y direction
+ !                             pz - integer, 1 periodic boundary condition to be applied in z direction
+ !                                           0 no periodic boundary condition to be applied in z direction
+ !      &ENDSUBCTL    -  indicate end of a subsection
+  
+ !  ___________________________________________________________
+ !   KEYWORDS of NEIGHBSUBCTL subsection:
+ !   &NEIGHBSUBCTL   - indicate the start of this subsection
+ !      &MAXNB       - indicate input of the maxmun number of neighbore for an atom
+ !                     usage: &MAXNB num
+ !                            num - integer, the number of neighbores permitted for an atom           
+ !      &UPDATEFRE   - indicate input of the parameters controling the frequency of updating neighbore list
+ !                     usage: &UPDATEFRE  itabmi, itabmax, iitab     
+ !                            itabmi  - integer, minimun number of timesteps after which the neighbore list will be updated  
+ !                            itabmax - integer, maximun number of timesteps after which the neighbore list will be updated  
+ !                            iitab   - integer, number of timesteps after which the frequence of update nieghbor list will 
+ !                                               be increased
+ !      &CUTOFF      - indicate the input of parameters of cutoff distance for neighbore calculations
+ !                     usage: &CUTOFF dist
+ !                            dist - real, the cutoff distance in unit of the utoff distance of force
+ !   &ENDSUBCTL
+ !
+ 
+ !  ___________________________________________________________
+ !   KEYWORDS of &NEBSUBCTL:
+ !   &NEIGHBSUBCTL   - indicate the start of this subsection
+ !     
+ !      &CLIMB       - indicate input of the parameter contolling searching saddle point
+ !                     usage: &CLIMB  cl     
+ !                            cl    - integer, =0 no climbing searching
+ !                                             =1 with climbing searching
+ !      &DRTOL       - indicate the input of tolerance displacement. See also &FINDNODE 
+ !                     usage: &DRTOL dist
+ !                            dist - real, the minimum displacement of atoms. When the displacement of any atom 
+ !                                         in two images is larger than this displacement, the two images are 
+ !                                         consider to be different. This parameter is used when intermediate 
+ !                                         substable states exist between the initial reactant-product states.  
+ !      &KVAL        - indicate input of "spring" constant
+ !                     usage: &KVAL  kv     
+ !                            kv    - real, the spring constant
+ !      &FINDNODE    - indicate input of the parameter contolling if intermediate substable states to be searched
+ !                     usage: &FINDNODE iter
+ !                            iter   - integer, the number of iterations of searching the substable states.
+ !                                              If iter =0, no search is performed.
+ !      &NUMIMGS     - indicate input of the number of images
+ !                     usage: &NUMIMGS num
+ !                            num   - integer, the number of images between two neighboring stable/substable states
+ !      &QUICKDAMP   - indicate input of minization parameters
+ !                     usage: &QUICKDAMP  steps     
+ !                            steps - integer, the maximum iteration steps of searching potential minimum
+
+ !   &ENDSUBCTL
+ !***********************************************************************

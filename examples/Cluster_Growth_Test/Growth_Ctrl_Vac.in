@@ -1,0 +1,44 @@
+!***********************************************************************
+!   This is a sample file of control file of running Cluster_Growth. 
+!   This file is directed by SetupSampe_Vac_Cluster.dat and provde 
+!   parameters for identifying defect cluster, and the insert vacancy.
+!
+!***********************************************************************
+
+ 
+ !--- first, we should give the filename of reference configuration used for 
+ !    Wigner-Seitz analysis of defect cluster
+ &REFCFG filename of the reference configuration = "W_2000.cfg"
+ 
+ !---  we should define kind of cluster which will grows. In this examples, 
+ !     a vacancy cluster will grow. Thus we have the following set  
+ !      
+ &DEFECTTYP the cluster will grow is: "VAC"
+ 
+ !--- Example of extended cluster: 
+ !
+ !                         iii   
+ !                        iieii
+ !                       iieCCeii 
+ !                      iieCCCeii
+ !                       iieCCeii
+ !                        iieeii
+ !                         iii
+ !
+ !    C indicating the cluster core W-S sites
+ !    e denotes the extended shell constructed by W-S sites
+ !    i denotes the insert shell constructed by W-S sites, in which new atom (vacancy) will be inserted (created)  
+ !           
+ !--- NOTE: to insert a vacancy, the type shoule be < 0. In this example
+ !          one atom of type 1 in the insert shell will be removed
+ !
+ &INSTYP    atom type will be inserted is type -1
+ 
+ &EXTSHELL  the cluster will be extended for is 0 (shell layer)
+ 
+ &INSSHELL  thick of insert shell is 1 (shell layer)
+
+ !--- parameters control clustering
+ &CLUSMETH         "USEDT"    0.6   (LU)
+ &PROP_TYPE type to be used in clustering = "VAC"
+ &SAVE_REFBOX if save refbox with clusters      "YES"  

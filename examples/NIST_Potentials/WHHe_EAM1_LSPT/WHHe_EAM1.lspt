@@ -1,0 +1,22 @@
+!
+!                                                                 
+!                                                                 
+!                                                                                                                                   
+&LSPT ----------------------------                     
+                NGROUP  the number of groups =  3  (the number of elements)    
+                ATOMSYMBOL  group#1 = "W", group#2 = "H", group#3 = "He"  
+                           F_RHO #1 filename =     "WHHe-EAM1-F_W.spt"                                   
+                           RHO_R #1 filename =     "WHHe-EAM1-rhoW.spt"   
+                           F_RHO #2 filename =     "NA"                                           
+                           RHO_R #2 filename =     "NA"   
+                           F_RHO #3 filename =     "NA"  
+                           RHO_R #3 filename =     "NA"                                  
+     VR  (1,1)                     filename  =     "WHHe-EAM1-pWW.spt"                                           
+     VR  (2,1),(2,2)               filenames =     "WHHe-EAM1-pWH.spt", "WHHe-EAM1-pHH.spt"                              
+     VR  (3,1),(3,2),(3,3)         filenames =     "WHHe-EAM1-pWHe.spt", "WHHe-EAM1-pHHe.spt", "WHHe-EAM1-pHeHe.spt"                 
+                                                                  
+                
+                                                                  
+                                                                                                                                                 
+                                                       
+                     

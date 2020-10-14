@@ -1,0 +1,158 @@
+!***********************************************************************
+!
+!   This file describes the format of BOXFILE used in MDPSCU. 
+!   The BOXFILE provides property parameters for a simulation
+!   box. (see also SetupFile_general.readme) 
+!
+!   You can write comments and empty lines in the file. 
+!   Each line strating with ! will be explained as a 
+!   comment line(just like this line). 
+!
+!   In the front of the parameters, discription could be added. 
+!   The seperator between the parameters and the discription is 
+!   = or space.  Between each line, one could add empty lines or
+!   or comments
+!   ___________________________________________________________
+!   FORMAT:
+!
+!       &BOXF
+!         &[keyword of subsection]
+!           &[keyword of parameter1]  parameter= ...
+!           &[keyword of parameter2]  parameter= ...
+!           ...
+!         $ENDSUBCTL
+!       &ENDBOX
+!
+!   The input section should be started with keyword "&BOXF", 
+!   and ended with "&ENDCTL". The input section contains a set
+!   of subsections starting with keyword for the subsection
+!   and ended with keyword "&ENDSUBCTL". If a keyword dose not
+!   appear, default value for that parameter(s) will be used
+!
+!  ___________________________________________________________
+!   KEYWORDS LIST of subsection:
+!  
+!       &BOXSUBCTL     -  indicate start of subsection of parameters defining the boxsize
+!                         and lattice structures
+!       &ATOMSUBCTL    -  indicate start of subsection of parameters defining the number 
+!                         of atoms and atom kinds concerned.
+!       &ENDSUBCTL     -  indicate end of a subsection
+!
+!  ___________________________________________________________
+!   KEYWORDS of BOXSUBCTL subsection:
+!      &BOXSUBCTL    - indicate the start of this subsection of box parameters
+!        &SIZE       - indicate inpput box size in X, Y, Z direction
+!                       usage: &SIZE lx, ly, lz
+!                              lx - real, the boxsize in x direction in lattice unit
+!                              ly - real, the boxsize in y direction in lattice unit
+!                              lz - real, the boxsize in z direction in lattice unit
+!
+!        &LOWB       - indicate input of low boundary of the box, that is
+!                      (xmin, ymin, zmin) of the box. This input is optional
+!                       usage: &LOWB xmin, ymin, zmin
+!
+!        &LATT       - inicate input of lattice constant  
+!                      usage: &LATT latt
+!                              latt- real, the lattice constant. The lattice constant
+!                                    to be used for the unit of positions of
+!                                    atoms in the initial configuration. 
+!
+!      &ENDSUBCTL    - indicate end of a subsection
+
+!  ___________________________________________________________
+!   KEYWORDS of ATOMSUBCTL subsection:
+!      &ATOMSUBCTL    - indicate the start of this subsection of atom parameters
+!        &NATOM       - indicate input of total INITIAL number of atoms.
+!                       usage: &NATOM na
+!                              na - integer, the number of atoms in the initial configuration
+!
+!        &NGROUP      - indicate input of number of groups that the atoms are grouped in  
+!                       usage: &NGROUP ngroup
+!                              ngroup - integer, the number of kinds of atoms to be 
+!                                       involved in the simulation
+!
+!        &GROUPSUBCTL - indicate start of parameters of a atom group
+!           &NATOM    - inicate input of number of atoms in the group
+!           &ATOMP    - indicate input of atom properties of the atoms in the group:
+!                       usage: &ATOMP an,  am, as
+!                              an - integer, the atomic number
+!                              am - integer, the atomic mass
+!                              as - sting, the symbol of element
+!                                   1 for yes, 0 for no
+!
+!                       example: &ATOMP atomic number= 40; atomic mass= 91.22; atomic symbole= "Zr" 
+!
+!           &STAT     - indicate input of state of the group (fixed position, or fixed velociies etc)
+!                       usage: &STAT stat
+!                              stat - integer, its bit indicating the assigned stae of the group of atoms
+!                                      from right to left: bit2 = 1, the atomic position in x direction is fixed
+!                                                          bit3 = 1, the atomic position in y direction is fixed
+!                                                          bit4 = 1, the atomic position in z direction is fixed
+!                                                          bit5 = 1, the atomic velocity in x direction is fixed
+!                                                          bit6 = 1, the atomic velocity in y direction is fixed
+!                                                          bit7 = 1, the atomic velocity in z direction is fixed
+!                                                          bit8 = 1, the temperature of this group of atoms is fixed
+!                                                          
+!                       example1: &STAT stat= 8  the bits if stat is (..01000), indicating the postion in Z direction to be fixed
+!                       example2: &STAT stat= 14 the bits if stat is (..01110), indicating the postion of atoms to be fixed in three direction
+!                                      
+!                                                          
+!        &ENDSUBCTL   - indicate end of a subsection
+!      &ENDSUBCTL     - indicate end of a subsection
+
+!  ___________________________________________________________
+!   KEYWORDS of POTSUBCTL subsection:
+!      &POTSUBCTL    - indicate the start of this subsection of potential 
+!        &TYPE       - indicate input type of the potential to used. 
+!                      usage: &TYPE type
+!                             type - string, the type name of the potential.
+!                                    The supported type of potential included:
+!                                    "FS_TYPE":  FS potential 
+!                                    "EAM_TYPE": EAM potential 
+!                      example1: &TYPE= "EAM_TYPE"
+!
+!        &LIBNAME    - indicate input of the name of the potential library.
+!                      usage: &LIBNAME libname, sublibname
+!                             libname - straing, the name of potential lib.
+!                             sublibname - string, the name of sublib in cases 
+!                                          the lib contains a number of sub lib
+!                             The potential library could be internal lib or the
+!                             external lib. 
+!
+!                             The implmented internal lib includ:
+!                             for FS type:
+!                             "EM_TB_Ackland_Vitek_PRB41_10324"
+!                             "EM_TB_AWB_Phil_Mag_A71_1995_553"
+!                             "EM_TB_Cleri_Rosato_PRB48_22"
+!                             "EM_TB_WangJun_Ti-HE_2007"
+!                             "EM_TB_WangJun_W-HE_2010"
+!
+!                             for EAM type:
+!                             "EAM_WHeH_Bonny_JPCM26_2014"
+!                             "EAM_WW_Marinica_JPCM25_2013"
+!                             "EAM_Zr_Mendelev_Phil_Mag_L87_2007"
+!                     
+!                             The external potential libraris can
+!                             be used by importing potential parameters od tables
+!                             from files. The supported format of files are  
+!                             "spt", "setfl" and "molfy" files.  
+!
+!                      example1: &LIBNAME  "EM_TB_WangJun_W-HE_2010" (for internal lib)
+!                      example2: &LIBNAME  "EAM_WW_Marinica_JPCM25_2013", "EAM2" (for internal lib with sublibs)
+!                      example3: &LIBNAME  "D:\NIST_Potentials\WHHe_EAM1\WHHe_EAM1.setfl" (to use a external lib)
+! 
+!                    
+!        &TABLE      - indicate input of potential table to be used for atom group pairs
+!                      number of &TABLE statements should be equal to the number of groups 
+!                      input by keyword &NGROUP)
+!                      usage: 
+!                             &TABLE  tab11, tab12, tab13,...
+!                             &TABLE  tab21, tab22, tab23,...
+!                      example1: 
+!                             &TABLE  W   1     2
+!                             &TABLE  H   4     5
+!
+!      &ENDSUBCTL    - indicate end of a subsection
+!***********************************************************************
+!
+

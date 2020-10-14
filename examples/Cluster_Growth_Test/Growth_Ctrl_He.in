@@ -1,0 +1,47 @@
+!***********************************************************************
+!   This is a sample file of control file of running Cluster_Growth. 
+!   This file is directed by SetupSampe_He_Cluster.dat, provding parameters
+!   for identifying defect cluster, and the insert atoms.
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+
+ 
+ !--- first, we should give the filename of reference configuration used for Wigner-Seitz 
+ !    analysis of defect cluster
+ &REFCFG filename of the reference configuration = "W_2000.cfg"
+ 
+ !---  we should define the kind of cluster to grow. In this examples, 
+ !     a defect cluster could be a vacancy cluster, or SIA cluster, or
+ !     a combination cluster of SIA and impurity. The atoms of type 2
+ !     is defined as impurity. 
+ !      
+ &DEFECTTYP impuritis 2, and "VAC", "SIA", "COMBCLUS"
+ 
+ !--- Example of extended cluster: 
+ !    
+ !                         iii   
+ !                        iieii
+ !                       iieCeii 
+ !                      iieCCCeii
+ !                       iieCeii
+ !                        iieii
+ !                         iii
+ !
+ !    C indicating the cluster core W-S sites
+ !    e denotes the extended shell constructed by W-S sites
+ !    i denotes the insert shell constructed by W-S sites, in which new atom (vacancy) will be inserted (created)             
+ !
+ 
+ !---  In the neighbor region of the clusters, new atom of type 3 will 
+ !     be insert 
+ &INSTYP    atom type will be inserted is type 3
+ 
+ &EXTSHELL  shell-layers that the cluster will extended for is 0 
+ &INSSHELL  thick of shell-layer is 0
+

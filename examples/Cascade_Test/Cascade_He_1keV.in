@@ -1,0 +1,31 @@
+!***********************************************************************
+!   This is a sample file of control file of running Cascade. 
+!   This file is directed by SetupSampe_He.dat, provding parameters
+!   for incident energies, type of incident atoms.
+!
+!   You can write comments and empty lines in the file. Each line with 
+!   as the first character  will be explained as a comment line(just like this line). 
+!
+!   The input parameters are introduced by keywords. A default value
+!   will be used for a parameter if its keyword dose not appear.
+!
+!***********************************************************************
+
+ 
+ !--- first, we should give the properties of projectils
+ &PROJ1
+   &INCID_TYPE "EXT" "He"
+   &EN_SPECT  "MONO" 1.0 keV, 0.2
+   &INCID_POS "BOX" 
+   &INCID_DIR "POLAR",  60, 0
+   &INCID_RATIO 1.D0
+ &ENDPROJ1
+ 
+ &PROJ2
+    &INCID_TYPE "PKA" 1
+    &INCID_POS  "BOX"
+    &INCID_DIR  "CENTER",  90
+    &INCID_RATIO 0.D0
+ &ENDPROJ2
+ 
+

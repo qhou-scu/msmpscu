@@ -1,0 +1,278 @@
+ !***********************************************************************
+ !
+ !   This file describes the format of control file for 
+ !   Parallel-Replica MD (PARREP) simulations.
+ !
+ !   In comparison with the control file for generic MD, 
+ !   specific notes should be given to the keywords: 
+ !     &CTLF:PARREP 
+ !     &BOX in subsection &COMMSUBCTL, 
+ !     &PARREPSUBCTL, in subsection &SECTCUBCTL
+ !       
+ !   The control file provides parameters that used to conbtrol 
+ !   the simulation process (see also SetupFile_general.readme) 
+ ! 
+ !   You can write comments and empty lines in the file. 
+ !   Each line strating with ! will be explained as a 
+ !   comment line(just like this line). 
+ !
+ !   In the front of the parameters, discription could be added. 
+ !   The seperator between the parameters and the discription is 
+ !   = or space.  Between each line, one could add empty lines or
+ !   or comments
+ !   ___________________________________________________________
+ !   FORMAT:
+ !
+ !       &CTLF:PARREP
+ !         &[keyword of subsection]
+ !           &[keyword of parameter1]  parameter= ...
+ !           &[keyword of parameter2]  parameter= ...
+ !           &[keyword of sub-subsection]
+ !             &[keyword of parameter3]  parameter= ...     
+ !               ...
+ !             &ENDSUBCTL
+ !           ...   
+ !         &ENDSUBCTL
+ !       &ENDCTL
+ ! 
+ !   The input section should be started with keyword:
+ !    "&CTLF:PARREP", or "&CTLF-PARREP", or "&CTLF_PARREP", 
+ !   and ended with "&ENDCTL". The input section contains a set
+ !   of subsections whith started with keyword for the subsection
+ !   and ended with keyword "&ENDSUBCTL". If a keyword dose not
+ !   appear, default value for that parameter(s) will be used
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS LIST of subsection:
+ !       &COMMSUBCTL    -  indicate start of subsection of parameters about rand number seed, box number etc
+ !       &POTENSUBCTL   -  indicate start of subsection of potential cutoff parameters 
+ !       &ANALYSUBCTL   -  indicate start of subsection of analysis control, used when analysissehll to be used
+ !       &SECTSUBCTL    -  indicate start of subsection of time subsections 
+ !       &ENDSUBCTL     -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of COMMSUBCTL subsection:
+ !      &COMMSUBCTL    - indicate the start of this subsection of control parameters
+ !         &BOXS       - indicate input of parameters controling the number of boxes.
+ !                       3 parameters required.
+ !
+ !                       usage:     &BOXS prc  trc  ind
+ !                                  prc - integer, the max number of replicas
+ !                                  trc - integer, the number of total replicas
+ !                                                 trc/pcr sir the number of trajectories
+ !                                                 to be generated.
+ !                                  ind - integer, indicate if trajectories are independent 
+ !                                  1 for yes, 0 for no
+ !                        example:  &BOXS  prc= 100, tb= 1000, independent = 1
+ !                
+ !                        
+ !         &RANDSEED   -  random number seed 
+ ! 
+ !                        usage:    &RANDSEED num
+ !                        example:  &RANDSEED 123456
+ !
+ !      &ENDSUBCTL     -  indicate end of a subsection 
+
+ !  ___________________________________________________________
+ !   KEYWORDS of POTENSUBCTL subsection:
+ !      &POTENSUBCTL    - indicate the start of this subsection of control parameters
+ !         &CUTOFF      - indicate the input of cutoff distance in force calculations
+ !                        usage: &CUTOFF  dist
+ !                               dist - real, the cutoff distance in lattice unit
+ !         &TABLESIZE   - indicate the input of size of potential and force table 
+ !                        usage: &TABLESIZE  num
+ !                               num - integer, the number of grids of force tables
+ !      &ENDSUBCTL 
+ 
+ !  ___________________________________________________________
+ !   KEYWORDS of ANALYSUBCTL subsection:
+ !      &ANALYSUBCTL  - indicate the start of this subsection of control parameters
+ !         &JOBSEL    - indicate which TESTs (ref to user guid) to be included in analysis.
+ !                      without this keyword, all TESTs will be analyzed.
+ !
+ !                      usage: &JOBSEL  J0, J1, JS
+ !                             where J0 is the id of the frist TEST
+ !                                   J1 is the id of the end  TEST
+ !                                   JS is the intervale of the TESTs
+ !
+ !                      example: &JOBSEL  1, 99, 2 indicating TESTs #1, #3, #5,...,#99 will be included for analyzing
+ !
+ !         &CFGSEL    - indicate which configurations to be included in analysis for included TESTs
+ !                      without this keyword, all configurations will be analyzed.
+ !
+ !                      usage: &CFGSEL  C0, C1, CS
+ !                             where C0 is the id of the frist configuration in a test
+ !                                   C1 is the id of the end configuration in a test
+ !                                   CS is the intervale of the configurations
+ !
+ !                      example: &CFGSEL  5, 100, 5 indicating configuration #5, #10, ...,#100 will be included for analyzing
+ !
+ !        &BOXSEL    -  indicate which boxes to be included in analysis for included TESTs
+ !                      without this keyword, all boxes in a TEST will be analyzed. 
+ !                      The &BOXEL is applied when a TEST contain multiple boxes(see the parameters for keyword &BOX).
+ !                      This control parameter is not necessary for all analysis tool.
+ !
+ !                      usage: &BOXSEL  B0, B1, BS
+ !                             where B0 is the id of the frist box in a test
+ !                                   B1 is the id of the end box in a test
+ !                                   BS is the intervale of the boxes
+ !
+ !                       example: &BOXSEL  1, 50, 5 indicating boxes #1, #6, ...,#46 will be included for analyzing
+ !
+ !        &QUICKDUMP -  indicate if quenchng will be performed before the analysis.
+ !
+ !                      usage: &QUICKDUMP  steps
+ !                             where steps is the times steps needed for doing queching
+ !
+ !                       example: &QUICKDUMP  2000 indicating the system will be queching for 2000 timesteps beforeing 
+ !                             going of analysis
+ !
+ !      &ENDSUBCTL     -  indicate end of a subsection 
+
+ !  ___________________________________________________________
+ !   KEYWORDS LIST of SECTSUBCTL subsection:
+ !       &BOUNDSUBCTL   -  indicate start of a sub-subsection of parameters controling boundary conditions
+ !       &NEIGHBSUBCTL  -  indicate start of a sub-subsection of parameters controling the calculation
+ !       &PRESSSUBCTL   -  indicate start of a sub-subsection of parameters controling pressure        
+ !       &TEMPSUBCTL    -  indicate start of a sub-subsection of parameters controling temperature
+ !       &TIMESUBCTL    -  indicate start of a sub-subsection of parameters controling time steps
+ !       &PARREPSUBCTL  -  indicate start of a sub-subsection of parameters controling parallel-replica MD
+ !       &ENDSUBCTL     -  indicate end of a a sub-subsection 
+
+ !  ___________________________________________________________
+ !   KEYWORDS of BOUNDSUBCTL sub-subsection:
+ !      &BOUNDSUBCTL  - indicate the start of this sub-subsection
+ !        &PERIDIC    - indicate input peridic conditions in X, Y, Z direction
+ !                      usage: &PERIDIC  px, py, pz
+ !                             px - integer, 1 periodic boundary condition to be applied in x direction
+ !                                           0 no periodic boundary condition to be applied in x direction
+ !                             py - integer, 1 periodic boundary condition to be applied in y direction
+ !                                           0 no periodic boundary condition to be applied in y direction
+ !                             pz - integer, 1 periodic boundary condition to be applied in z direction
+ !                                           0 no periodic boundary condition to be applied in z direction
+ !      &ENDSUBCTL    -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of NEIGHBSUBCTL subsection:
+ !   &NEIGHBSUBCTL   - indicate the start of this subsection of control parameters
+ !      &MAXNB       - indicate input of the maxmun number of neighbore for an atom
+ !                     usage: &MAXNB num
+ !                            num - integer, the number of neighbores permitted for an atom           
+ !      &UPDATEFRE   - indicate input of the parameters controling the frequency of updating neighbore list
+ !                     usage: &UPDATEFRE  itabmi, itabmax, iitab     
+ !                            itabmi  - integer, minimun number of timesteps after which the neighbore list will be updated  
+ !                            itabmax - integer, maximun number of timesteps after which the neighbore list will be updated  
+ !                            iitab   - integer, number of timesteps after which the frequence of update nieghbor list will 
+ !                                               be increased
+ !      &CUTOFF      - indicate the input of parameters of cutoff distance for neighbore calculations
+ !                     usage: &CUTOFF dist
+ !                            dist - real, the cutoff distance in unit of the utoff distance of force
+ !   &ENDSUBCTL
+ !       
+ !  ___________________________________________________________
+ !   KEYWORDS of PRESSSUBCTL subsection:
+ !      &PRESSSUBCTL       - indicate the start of this subsection of control parameters
+ !        &PRESSURE        - indicate inpput of expected external pressure tensor
+ !                           usage: &PRESSURE exp 
+ !                           exp - external pressure in the unit of CGS                          
+ !        &BERENDSEN_PARA  - indicate input of parameters for BERENDSEN method used to control pressure
+ !                           usage: &BERENDSEN_PARA bpc  "fname"
+ !                                  bpc - integer, >0   BERENDSEN method to be used to control pressure, otherwise
+ !                                                 <= 0 no BERENDSEN method to be used to control pressure
+ !                                  fname - characters, the filename contains control parameters of BERENDSEN method 
+ !        &JONHSON_PARA    - indicate input of parameters for JONSHON method used to control pressure
+ !                           usage: &JONHSON_PARA jw
+ !                                  jw - real, the 'mass' of the external system
+ !      &ENDSUBCTL     -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of TEMPSUBCTL subsection:
+ !      &TEMPSUBCTL    -   indicate the start of this subsection of control parameters
+ !        &TEMPERATURE     - indicate inpput of expected temperature of the system.
+ !                            usage: &TEMPERATURE T
+ !                                   T - real, the temperature in K. 
+ !                            
+ !        &THERMALIZATION  - indicate input of parameters controling thermalization of the system. 
+ !                           usage: &THERMALIZATION num, pnum, meth
+ !                                  num  - integer, the times of thermalizing the system.       
+ !                                  pnum - integer, the number of timesteps of thermalizing the system. For every pnum timesteps
+ !                                                  thermalization will be performed. This will be formed for num times.       
+ !                                  meth - string,  the method of thermalization. For PARREP, only "MC" method are used 
+ !                                                  to dephase the in replicas. (Ref to CtrlFile_GMD.readme) 
+ !
+ !      &ENDSUBCTL     -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of TIMESUBCTL subsection:
+ !      &TIMESUBCTL    -  indicate the start of this subsection of control parameters
+ !        &TERMINATE      - indicate inpput of parameters controling the termination of the process. 
+ !                          usage: &TERMINATE numstep, time
+ !                                 numstep  - integer, the max number of timesteps at which the process to be stoped.
+ !                                 time     - integer, the max time in ps at which the process to be stoped.
+ !                          The process will stop at one of these condition satisfied.     
+ !        &STEPSIZE       - indicate input of parameters controling timestep size.
+ !                          usage: &STEPSIZE num, hmi, hmax, dmx
+ !                                 num - integr, indicate if variable time steps to be used.
+ !                                               =0, timestep size is fixed by hmi; 
+ !                                               >0,  timestep will increased from hmi, for each num time steps 
+ !                                                    untill timesetp = hmx
+ !                                               <0,  timestep will be adapted automatically according to dmx 
+ !                                 hmi - real, the minmum size (for num >= 0) and initial size of timestep           
+ !                                 hmx - real, the maxmum size of timestep, used only for num > 0
+ !                                 dmx - real, the maxmun distance for atoms moving in one timestep. Used to
+ !                                             automaticaly determine the timestep when num < 0. 
+ !                                             The timestep to be updated for every |num| steps.             
+ !        &OUTPUIT_T      - indicate input of parameter controling number of timesteps for outputing
+ !                          thermal quantities of the whole system.
+ !                          usage: &OUTPUIT_T num
+ !                                 num  - integer, the number timesteps. For every num time steps, thermal quantities 
+ !                                                 of the whole system will be output.
+ !
+ !        &EXTRECORD      - indicate input of parameter controling number of timesteps for invoke
+ !                          external recording process. If PARA_REP method is used, this parameter is
+ !                          the timesteps needed to detect the change of structure.
+ !
+ !                          usage: &EXTRECORD num
+ !                                 num  - integer, the number of timesteps. For every num time steps, external 
+ !                                                 recording process to be invoked.
+ !
+ !
+ !      &ENDSUBCTL     -  indicate end of a subsection
+ !
+ !  ___________________________________________________________
+ !   KEYWORDS of PARREPSUBCTL subsection:
+ !      &PARREPSUBCTL  -  indicate the start of this subsection of control parameters
+ !        &QUICKDAMP       - indicate inpput of parameters controling the quickdamping. 
+ !                           These parameter to be used when checking the occurence of 
+ !                           events.
+ !                           usage: &QUICKDAMP timesteps meth
+ !                                  timesteps - integer, the number of time steps over which the quick-daqmping 
+ !                                                       will be performed   
+ !                                  meth      - strng,   the method used to damping the system.
+ !                                                       = "DYN"
+ !                                                       = "LBFGS"
+ !
+ !        &EVENTCHECKSTEPS - indicate inpput of time steps, for which the event occurence to be checked
+ !                           usage: &EVENTCHECKSTEPS numstep
+ !                                 numstep  - integer, for every numstep, event checking will be started.
+ ! 
+ !        &FINECHECKSTEPS - indicate inpput of fine time steps to detect event occurence.
+ !                           usage: &FINECHECKSTEPS numstep
+ !                                  numstep  - integer, if an event found in &EVENTCHECKSTEPS steps
+ !                                                      the checking will be conducted for finer steps
+ !                                                      to improve the accuracy of time of the event. 
+ !
+ !       &EVENTDR         - indicate inpput of displacement threothold to detecting the change of structure.
+ !                           usage: &EVENTDR dr
+ !                                  dr - real, the dispalcement threoshold in A. If the displacement of any atom
+ !                                       is larger than dr, the structure is considered to be changed.
+ !
+ !       &TERMINATEVENT   - indicate inpput of parameters controling the termination of process.
+ !                           usage: &TERMINATEVENT ne
+ !                                  ne - integer, the number of events at which the process to be terminated
+ !                                       if ne events are detect before time steps givent by &TERMINATE. 
+ !                                          
+ !      &ENDSUBCTL     -  indicate end of a subsection
+ !***********************************************************************
+ ! 
+  
