@@ -1,0 +1,60 @@
+#!/bin/bash
+mcpscusor=/home/zhail/Development/public/mcpscu_2018_11_12
+mcworkspace=/home/zhail/Development/public/mcworkspace/mcpscu_2018_11_12
+
+export mcpscusor
+export mcworkspace
+
+#Create the directory for the applications
+if [ ! -d $mcworkspace/APPLICATIONS ];then
+     mkdir $mcworkspace/APPLICATIONS
+fi
+
+export libnames="RunningProfile CudaRandomC2F MiniUtilities RandGenerators"
+export msmlibnames="MSMLIB"
+export mclibnames="AppShell MigCoaleModel CommonGPU Common"
+
+
+if [ $# = 1 ]; then
+    ConfigName="Release"
+    echo "Release version to be created"
+    if [ ! -d $mcworkspace/APPLICATIONS/$ConfigName ];then
+          mkdir $mcworkspace/APPLICATIONS/$ConfigName
+    fi
+    export  OBJNAME="$1"
+    make -f $mcpscusor/MCLIB/APPLICATIONS/Commom_makefile.mk MCPSCUSOR=$mcpscusor MCWORKSPACE=$mcworkspace ConfigName=$ConfigName
+fi
+
+if [ $# -ge 2 ]; then 
+    if [ "$1" = "-d" ]; then
+       ConfigName="Debug";
+       echo "Debug version to be created"
+       if [ ! -d $mcworkspace/APPLICATIONS/$ConfigName ];then
+          mkdir $mcworkspace/APPLICATIONS/$ConfigName
+       fi
+       export  OBJNAME="$2"
+       make -f $mcpscusor/MCLIB/APPLICATIONS/Commom_makefile.mk MCPSCUSOR=$mcpscusor MCWORKSPACE=$mcworkspace ConfigName=$ConfigName
+    fi
+
+    if [ "$1" = "-r" ]; then
+       ConfigName="Release"
+       echo "Release version to be created"
+       if [ ! -d $mcworkspace/APPLICATIONS/$ConfigName ];then
+          mkdir $mcworkspace/APPLICATIONS/$ConfigName
+       fi
+       export  OBJNAME="$2"
+       make -f $mcpscusor/MCLIB/APPLICATIONS/Commom_makefile.mk MCPSCUSOR=$mcpscusor MCWORKSPACE=$mcworkspace ConfigName=$ConfigName
+    fi
+
+    if [ "$1" = "-dc" ]; then
+       export ConfigName="Debug"; 
+       export  OBJNAME="$2"
+       make clean -f $mcpscusor/MCLIB/APPLICATIONS/Commom_makefile.mk
+    fi
+
+    if [ "$1" = "-rc" ]; then
+       export ConfigName="Release"; 
+       export  OBJNAME="$2"
+       make clean -f $mcpscusor/MCLIB/APPLICATIONS/Commom_makefile.mk
+    fi
+fi

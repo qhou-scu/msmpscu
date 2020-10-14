@@ -1,0 +1,134 @@
+export comp=pgfortran
+
+#Create the directory for the applications
+if [ ! -d $WORKSPACE/applications ];then
+     mkdir $WORKSPACE/applications
+fi
+cd $WORKSPACE/applications
+
+#assign the extention of libs
+#for linux, the extension is "a"; for windows, it is "lib"
+OSVER=$(cat /proc/version | head -c 5)
+
+if [ "$OSVER" = "CYGWI" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc2x 
+
+   export LIB_EXT=lib
+   # the external lib dependence
+   export dependlibname="curand" 
+fi
+
+if [ "$OSVER" = "Linux" ]; then
+   cudaxx=cuda8.0 
+   cudacc=cc3x 
+
+   export LIB_EXT=a
+   # the external lib dependence
+   export dependlibname="" 
+fi
+
+if [ "$CUDAV" != "" ]; then
+   cudaxx='cuda'$CUDAV     
+fi
+
+if [ "$CUDAC" != "" ]; then
+   cudacc='cc'$CUDAC     
+fi   
+
+# the libs created by MDPSCU
+export libnames="MiniUtilities RandGenerators CudaRanGeneratorC2F LBFGS MATH_LBFGSB MATH90A"
+export msmcomlibnames="CommonGPU Common"
+#export mclibnames="AppShell MigCoaleModel CommonGPU Common"
+export mclibnames="RandWalk"
+
+
+if [ $# -lt 1 ]; then 
+     echo "Usage: bdapp [-option] projectname"
+     echo "Options: "
+     echo "    -d           degug version"
+     echo "    -r(default)  release version"
+     echo "    -dc          clear degug version"
+     echo "    -rc          clear release version"
+fi
+
+if [ $# = 1 ]; then
+    export ConfigName="Release"
+    
+     # set the OS dependent compiling config
+     # the compling option for CYGWI
+     if [ "$OSVER" = "CYGWI" ]; then
+        export oflags="-fast -D WIN_FILE -D NODEVRAN -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,$cudaxx,$cudacc";
+     fi  
+     
+     # the compling option for Linux
+     if [ "$OSVER" = "Linux" ]; then
+        export oflags="-fast -tp sandybridge-64  -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,$cudaxx,$cudacc,nollvm";
+     fi   
+          
+    echo "Release version to be created"
+    echo "with comipling option: "$oflags
+    export  OBJNAME="$1"
+    make -f $MCPSCUAPP/Commom_makefile.mk
+fi
+
+if [ $# -ge 2 ]; then 
+    if [ "$1" = "-d" ]; then
+       export ConfigName="Debug"; 
+       
+       # for debug version, we need to create a Debug subdirectory
+       if [ ! -d $WORKSPACE/applications/Debug ];then
+           mkdir $WORKSPACE/applications/Debug
+       fi
+       
+       # set the OS dependent compiling config
+       # the compling option for CYGWI
+         if [ "$OSVER" = "CYGWI" ]; then
+            export oflags="-g -D WIN_FILE -D NODEVRAN -Mcuda=cuda8.0,cc2x,nodebug";
+         fi  
+     
+       # the compling option for Linux
+        if [ "$OSVER" = "Linux" ]; then
+           export oflags="-g -Mcuda=cuda8.0,cc3x,nodebug";
+        fi 
+            
+       echo "Debug version to be created"
+       echo "with comipling option: "$oflags
+       export  OBJNAME="$2"
+       make -f $MCPSCUAPP/Commom_makefile.mk
+    fi
+
+    if [ "$1" = "-r" ]; then
+       export ConfigName="Release"
+    
+       # the compling option for CYGWI
+         if [ "$OSVER" = "CYGWI" ]; then
+            export oflags="-fast -D WIN_FILE -D NODEVRAN -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,cuda8.0,cc2x";
+         fi  
+     
+       # the compling option for Linux
+         if [ "$OSVER" = "Linux" ]; then
+            export oflags="-fast -tp sandybridge-64  -Mvect=sse,simd -Minform=warn -Minfo=all -Mcuda=fastmath,cuda8.0,cc3x";
+         fi
+            
+       echo "Release version to be created"
+       echo "with comipling option: "$oflags
+       export  OBJNAME="$2"
+       make -f $MCPSCUAPP/Commom_makefile.mk
+    fi
+
+    if [ "$1" = "-dc" ]; then
+       export ConfigName="Debug"; 
+       export  OBJNAME="$2"
+       make clean -f $MCPSCUAPP/Commom_makefile.mk
+    fi
+
+    if [ "$1" = "-rc" ]; then
+       export ConfigName="Release"; 
+       export  OBJNAME="$2"
+       make clean -f $MCPSCUAPP/Commom_makefile.mk
+    fi
+fi
+
+
+
