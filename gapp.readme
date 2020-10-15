@@ -1,0 +1,20 @@
+gapp is to build excutables for specific applications of of this packaged.
+
+
+1. Check the following points before run this command   
+
+	!*****************************************************************
+  bdlib have been run for building the basic libraiies needed for MD or MC applications.
+  (see bdlib.readme)	
+
+
+2. CD to the directory in which the source of main programs of applications are. For example:
+    cd mdapp
+    where mdapp is a link to msmpscu/MDLIB/sor/Applications
+    
+3. Run "gapp name", for example:
+   gapp SUBSTRATE
+   to generate the excutable SUBSTRATE.exe, in the dierectory  $HOME/SOMEWHERE/applications
+
+
+
