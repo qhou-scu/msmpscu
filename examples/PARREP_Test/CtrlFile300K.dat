@@ -1,0 +1,71 @@
+!***********************************************************************
+!   This is an example of CtrFile for Parallel-Replica MD.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       CtrlFile_PARREP.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   SEE ALSO: SampleSetup.dat in the same directory
+!
+!
+!***********************************************************************
+!
+
+&CTLF:PARREP
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 123456
+     &BOXS     box in one test = 100, total num = 100, independent = 1
+   &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 1.9, A-B= 1.9, B-A= 1.9, B-B= 1.9
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL   
+
+  &SECTSUBCTL  #1 ---------------------
+   &TEMPSUBCTL 
+      &TEMPERATURE    temperature of the system= 300
+      &THERMALIZATION number of thermalizing= 10, for evry steps 100
+   &ENDSUBCTL   
+   
+   &TIMESUBCTL
+     &TERMINATE  terminate simulation for steps = 30000
+     &STEPSIZE   use fixd step flag= 0, hmi= 0.5, hmx = 0.5, dmx = 0.01 
+     &OUTPUT_T   output thermal quantities for every 1000 time step   
+   &ENDSUBCTL    
+     
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 1
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 400
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10
+     &CUTOFF    cutoff between neighbors = 1.6
+   &ENDSUBCTL
+   
+   &PARREPSUBCTL 
+      &EVENTCHECKSTEPS   check configure change for every  500 time step 
+      &FINECHECKSTEPS    refining steps: 10 time step 
+      &TERMINATEVENT     simulatione to be terminate at event 8 
+   &ENDSUBCTL   
+
+   &EVENTDETECTSUBCTL
+     &DRTOL     displacement for judging if event occur (LU) 0.02
+     &QUENCHSTEP    1000 "ST"
+     &CGSUBCTL
+       &STEPBOUND congergence condition by stepsize (LU): 0.00001, the max stepsize: 0.1   
+       &DELTAPOT  convergence condition by potential diference between two steps: 0.00001
+     &ENDSUBCTL
+   &ENDSUBCTL
+  
+  &ENDSUBCTL end section #1  ---------------------
+  
+  
+
+&ENDCTLF
+  

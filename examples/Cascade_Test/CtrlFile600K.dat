@@ -1,0 +1,53 @@
+&CTLF
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 4353454
+     &BOXS     box in one test = 1, total num = 5, independent = 1
+   &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 1.9, A-B= 1.9, B-A= 1.9, B-B= 1.9
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL   
+
+  &SECTSUBCTL  #1 ---------------------
+     &TEMPSUBCTL "GL"
+      &TEMPERATURE    temperature of the system= 600
+      &THERMALIZATION number of thermalizing= 0, for evry steps 100, method = "MC"
+      &QUICKDAMP      disable quench process by set = 0
+      &EPCSUBCTRL     1000
+         &MODSUBCTL "MAN"
+           &ALPHA the manually set coupling time 0.1 (ps)
+           &EMAX  the energy threthold below which EPC will be applied: 10.00 eV
+         &ENDSUBCTL 
+      &ENDSUBCTL 
+      
+     &ENDSUBCTL !end for &TEMPSUBCTL 
+  
+   &TIMESUBCTL
+     &TERMINATE  terminate simulation for steps = 10000
+     &STEPSIZE   use fixd step flag= 1, hmi= 0.5, hmx = 0.5, dmx = 0.05 
+     &OUTPUT_T   output thermal quantities for every 100 time step   
+     &OUTPUT_C   output instant configure for every  100 time step   
+     &SAVE       output instant configure for every  100 time step   
+     &EXTRECORD  invoke external recording process for every 100 time step   
+   &ENDSUBCTL    
+     
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 1
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 400
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10, frequecy of changing updating frequency 100
+     &CUTOFF    cutoff between neighbors = 1.6
+   &ENDSUBCTL
+  &ENDSUBCTL end section #1  ---------------------
+  
+  &SECTSUBCTL  #2 ---------------------
+     !&TEMPSUBCTL "DISABLE"
+  &ENDSUBCTL end section #2  ---------------------
+
+
+&ENDCTLF
+  

@@ -1,0 +1,53 @@
+!***********************************************************************
+!   This is an example of CtrFile for using ART.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       CtrlFile_GMD.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   SEE ALSO: SampleSetup.dat in the same directory
+!
+&CTLF:ART
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 123456
+     &BOXS     box in one test = 1, total num = 10, independent = 1
+   &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 1.9, A-B= 1.9, B-A= 1.9, B-B= 1.9
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL   
+
+  &SECTSUBCTL  #1 we search the transition for 5000 time steps
+   
+   &ARTSUBCTL
+     &TERMINATE  terminate simulation for steps = 5000
+     &STEPSIZE   use fixd step flag= 0, hmi= 1, hmx = 1, dmx = 0.01 
+     &ACTMETH    method of activation "BYSINGLESEED"
+     &ACTSEED    atom type seed for initial activation  2
+     &EXTEND     extend region of the actseed (LU) -1
+     &ACTPERCENT pecentage of the atoms to be activated 1
+     &ALPHA      1.0
+     &DISPSTEP   displacement of images in LU 0.03
+     &DISPCON    condition for displacing image 0.01
+     &EVENTDRTOL displacement for judging if event occur (LU) 0.3
+   &ENDSUBCTL    
+   
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 1
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 512
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10, frequecy of changing updating frequency 100
+     &CUTOFF    cutoff between neighbors = 1.6
+   &ENDSUBCTL
+    
+  &ENDSUBCTL end section #1  ---------------------
+
+&ENDCTLF
+  

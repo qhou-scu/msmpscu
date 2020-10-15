@@ -1,0 +1,35 @@
+!***********************************************************************
+!   This is an example sample file for setup a NEB simulation. 
+!   For a general description about setup file can be found in, 
+!   the SampleSetup_general.dat in examples directory.
+!
+!   In this example, we perform NEB calculations for a serails
+!   configurations that was created by EventSearch which
+!   produce a number of jump events (see the example for Parallel_Replica
+!   in examples\EventSearch
+!
+!***********************************************************************
+!
+       
+   &START_NEB  
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     &CTLF  Control file:               "CtrlFileNEB3.dat"
+     
+     !*** the configurations at zero temperature genegrated 
+     !    by EventSearch were placed in 
+     !    " ..\EventSearch\500K_FS\Cfg_0K_P0000_xxxx.xxxx".
+     !    We load the configurations from these files.
+     !
+     !*** To perform the serial NEB calculations, we set 
+     !    extension range for the initial configurations,
+     !    1, -4 in this example. 
+     !    Note: in theis example, we set the end configuration 
+     !          to be less than zero. This means that the program 
+     !          will search the configurations until there is no
+     !          more configurations on the trajecory.
+     
+     &INIF  configuration file:         "../EventSearch/500K_FS/Cfg_0K_", 0, -9
+     !&INIF  configuration file:         "../EventSearch/500K_FS/Cfg_0K_P0000_0050.0009", 
+     !&TGTF  second configuration file:  "../EventSearch/500K_FS/Cfg_0K_P0000_0050.0010", 
+     &COUT Filename output configures:  "EventSearch/"
+   &END  

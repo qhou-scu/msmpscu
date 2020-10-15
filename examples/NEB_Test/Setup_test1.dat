@@ -1,0 +1,50 @@
+!***********************************************************************
+!   This is an example sample file for setup a NEB simulation. 
+!   For a general description about setup file can be found in, 
+!   the SampleSetup_general.dat in examples directory.
+!
+!   In this setup file, we first performed two GMD simulations
+!   to create the reactant and product configurations. With these
+!   two configuration, NEB calculation is perfomed
+!   
+!***********************************************************************
+!
+      
+   !*** start a GMD simulation to created the first configuration.
+   !    The initial configuration is a configuration obtained 
+   !    by previous MD simulation with temperature. Now, we
+   !    quench the configuration to zero temperature    
+   ! 
+   &START:GMD
+     &BOXF  Simulation box setup file:  "W_2000_H1_EAM1_box.dat"
+     &INIF  Initial configuration file:  "PrevCfg.0000" 
+     &CTLF  Control file:               "CtrlFile0K.dat"
+     &COUT Filename output configures:  "GMD/React"
+   &END 
+     
+   !*** start a GMD simulation to created the second configuration
+   !    The initial configuration is configuration obtained 
+   !    by previous MD simulation with temperature. Now, we
+   !    quench the configuration to zero temperature.  
+   !   
+   &START:GMD
+     &BOXF  Simulation box setup file:  "W_2000_H1_EAM1_box.dat"
+     &INIF Initial configuration file:  "PrevCfg.0002" 
+     &CTLF  Control file:               "CtrlFile0K.dat"
+     &COUT Filename output configures:  "GMD/Product"
+   &END  
+       
+   !*** start a NEB calculation with the created 
+   !    two configurations by GMD
+   !
+   &START_NEB  "pause"
+     &BOXF  Simulation box setup file:     "W_2000_H1_EAM1_box.dat"
+     &INIF the first configuration file:   "GMD/ReactP0000_0001.0001" 
+     &TGTF the second configuration file:  "GMD/ProductP0000_0001.0001"
+     &CTLF  Control file:                  "CtrlFileNEB1.dat"
+     
+     !*** the outputs will placed in the directory "W0K_Tetra_H1_EAM1"
+     &COUT Filename output configures:     "W0K_Tetra_H1_EAM1_Test1/"
+     
+     &AUXF_EMBED = Embed.ctl.dat
+   &END  

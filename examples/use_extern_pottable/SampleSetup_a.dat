@@ -1,0 +1,37 @@
+!***********************************************************************
+!   This is a sample file for setup a simulation. You can write comments
+!   and empty lines in the file. Each line with ! as the first character 
+!   will be explained as a comment line(just like this line). 
+!
+!   The present file provides filenames for box setup and basic control 
+!   parameters for a serials of simulations. The words starting with 
+!   character '&' is a keyword. 
+!   The case insensitive keyword $START indicates a start section of input 
+!   for a simulation, the keyword $END  indeicates the end of the input 
+!   section.
+
+!   Following $START, a list of filenams could be given with corresponding
+!   keywords. 
+!   &BOXF indicates the box information by the given by string "xxxxxxx" in the line.
+!   &INIF indicates the filename for the initial configuarion
+!   &CTRF indicates the filename for controlling parameters
+!   &TOUT indicates the filename for the output of thermal quantities
+!   &COUT indicates the filename for the output of instant configuarions on time points
+!   &SWAP indicates the filename for the binary output of current status of the system, 
+!         which could used for restart.
+!   &AUXF indicates the auxiliary filename(s) for other extended input or output
+!     
+!   The string variable for the filenames must be in form
+!   using "xxxxx". 
+!   The limiation of the number of auxiliary filenames is six.
+!
+!***********************************************************************
+! 
+   &START  
+     &BOXF  Simulation box setup file=  "W_2000_box_a.dat"
+     &INIF Initial configuration file=  "W_2000.cfg"           
+     &CTLF  Control file             =  "CtrlFile300K.dat"
+     &TOUT Filename output thermal quantities= "W300K\Thermal.DAT"
+     &COUT Filename output configures    = "W300K\cfg.DAT"
+     !&SWAP Filename save current status = "W300K\SWAP.DAT"
+   &END

@@ -1,0 +1,49 @@
+!***********************************************************************
+!   This is a sample file for setup a simulation. You can write comments
+!   and empty lines in the file. Each line with ! as the first character 
+!   will be explained as a comment line(just like this line). 
+!
+!   The present file provides filenames for box setup and basic control 
+!   parameters for a serials of simulations. The words starting with 
+!   character '&' is a keyword. 
+!
+!   The case insensitive keyword $START_XXX indicates a start section of input 
+!   for a simulation, the keyword $END  indeicates the end of the input 
+!   section. "_XXX" indicates what kind of application to be run. "_XXX"
+!   coould be one of the follows:
+!
+!      $START, $START_GMD - a generic MD simulation to be performed   
+!      $START_PARREP      - a paralell-replica MD simulation to be performed   
+!      $START_NEB         - a NEB simulation to be performed   
+!
+!   Following the $START statement, a list of filenams should be given with 
+!   corresponding keywords. 
+!
+!   The must-given files forall kinds of applications:  
+!   &BOXF indicates the filename providing box information.
+!   &CTLF indicates the filename for controlling parameters
+!   &INIF indicates the filename for the initial configuarion
+!   &COUT indicates the filename for the output of produced configuarions in the 
+!        simulation
+!
+!   The optional files:    
+!   &SWAP indicates the filename for the binary output of current status of the system, 
+!         which could be used for restart after accident interruption. Without giving this
+!         filename, a default filename starting with "swap" will be created in the same 
+!         directory of &COUT files.  
+!   &TGTF indicates the filename for the product configuarion for NEB calculation. 
+!         NEB calculations can be also run in a serial mode. In this mode, the
+!         keyword &TGTF should be omitted
+!   &TOUT indicates the filename for the output of thermal quantities. Without giving this
+!         filename, a default filename starting with "therm" will be created in the same 
+!         directory of &COUT files.
+!
+!   &AUXF indicates the auxiliary filename(s) for other extended input or output. 
+!              
+!     
+!   Note: The string variable for the filenames must be in form "xxxxx". 
+!
+!***********************************************************************
+!
+      
+ 

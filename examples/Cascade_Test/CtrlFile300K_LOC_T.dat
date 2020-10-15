@@ -1,0 +1,107 @@
+!***********************************************************************
+!   This is a of control file of running Cascade.exe.
+!   This control file is different from CtrlFile200K.dat
+!   is that the local temperature controls (EPC and Stopping)
+!   are enabled. 
+&CTLF
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 4353454
+     &BOXS     box in one test = 2, total num = 4, independent = 1
+   &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 1.9, A-B= 1.9, B-A= 1.9, B-B= 1.9
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL   
+  
+  !--- the parameters control STOPPING model
+  !
+  &STOPSUBCTL
+   !--- The stopping is applied when the kinetic energy of 
+   !    atoms is in range 20 eV to 20keV . 
+        &EMIN =  20.000 eV
+        &EMAX = 200000.000 eV
+        
+   !--- We use LS_Z85 model for stopping calculation
+        &MODEL = "LS_Z85"
+        
+   !--- We print out the sopping-energy table
+        &PRINTTAB = "YES"
+        
+   !--- We also save the inelastic energy loss for atoms
+        &PRINTTAB = "YES"
+        
+   !--- We also save the inelastic energy loss for atoms
+        &SAVEELOSS = "YES"
+        
+   !--- We set the atom number density less than zero to 
+   !    enable local density calculation.
+   !
+   !    If &MDEN set to 0, the number density is calculated by 
+   !    dividing the number of atoms by the boxsize.
+   !   
+   !    If &MDEN set larger than 0, the number density is the 
+   !    given density (in cm-3)
+        &MDEN = -1
+  &ENDSUBCTL  !End of STOPSUBCTL
+ 
+  &SECTSUBCTL  #1 ---------------------
+    !--- we use temperature for different atom groups
+     &TEMPSUBCTL "GR"
+       !--- sub control for group 1
+       !    we use EPC+ST control
+       &GRSUBCTL 1, "EPCST"
+         &TEMPERATURE temperature of the system= 300
+         
+         !--- For the EPC, we use an artifically given coupling time 
+         &MODSUBCTL  "MAN"
+           &ALPHA the manually set coupling time 1 (ps)
+           &EMAX  the energy threthold below which EPC will be applied: 10.00 eV
+         &ENDSUBCTL 
+       &ENDSUBCTL
+       
+       !--- sub control for group 2
+       !    we use EPC only, with the couping time given artifically 
+       &GRSUBCTL 2, "EPC"
+         &TEMPERATURE    temperature of the system= 300
+         &MODSUBCTL "MAN"
+           &ALPHA the manually set coupling time 0.1 (ps)
+           &EMAX  the energy threthold below which EPC will be applied: 1000 eV
+         &ENDSUBCTL 
+       &ENDSUBCTL
+       
+       !--- sub control for group 3
+       !    we use STOPPING only
+       &GRSUBCTL 3, "ST"
+       &ENDSUBCTL !--- end sub contrl for group 3
+       
+     &ENDSUBCTL !end for &TEMPSUBCTL 
+  
+   &TIMESUBCTL
+     &TERMINATE  terminate simulation for steps = 10000
+     &STEPSIZE   use fixd step flag= -1, hmi= 0.5, hmx = 0.5, dmx = 0.05 
+     &OUTPUT_T   output thermal quantities for every 100 time step   
+     &OUTPUT_C   output instant configure for every  100 time step   
+     &SAVE       output instant configure for every  100 time step   
+     &EXTRECORD  invoke external recording process for every 100 time step   
+   &ENDSUBCTL    
+     
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 0
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 400
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10, frequecy of changing updating frequency 100
+     &CUTOFF    cutoff between neighbors = 1.6
+   &ENDSUBCTL
+  &ENDSUBCTL end section #1  ---------------------
+  
+  &SECTSUBCTL  #2 ---------------------
+     &TEMPSUBCTL "DISABLE"
+  &ENDSUBCTL end section #2  ---------------------
+
+
+&ENDCTLF
+  

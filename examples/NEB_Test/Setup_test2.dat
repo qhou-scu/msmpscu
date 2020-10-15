@@ -1,0 +1,29 @@
+!***********************************************************************
+!   This is an example sample file for setup a NEB simulation. 
+!   For a general description about setup file can be found in, 
+!   the SampleSetup_general.dat in examples directory.
+!
+!   In this example, we perform NEB calculations for a serails
+!   configurations that was created by paralell-replica MD which
+!   produce a number of jump events (see the example for Parallel_Replica
+!   in examples\PARREP
+!
+!***********************************************************************
+!
+       
+   &START_NEB  
+     &BOXF  Simulation box setup file:  "W_2000_H1_EAM1_box.dat"
+     &CTLF  Control file:               "CtrlFileNEB2.dat"
+     
+     !*** the configurations at zero temperature genegrated 
+     !    by PARREP were placed in 
+     !    " ..\PARREP_Test\W0K_Tetra_H1_EAM1\Cfg_0K_P0000_xxxx.xxxx".
+     !    We load the configurations from these files.
+     !
+     !    To perform the serial NEB calculations, we set 
+     !    extension range for the initial configurations,
+     !    1, 4 in this example.
+     !***  
+     &INIF  configuration file:         "../PARREP_Test/W0K_Tetra_H1_EAM1/Cfg_0K_", 1, 4
+     &COUT Filename output configures:  "W0K_Tetra_H1_EAM1_Test2/"
+   &END  

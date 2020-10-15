@@ -1,0 +1,56 @@
+!***********************************************************************
+!   This is an example of CtrFile for NEB. 
+!   
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       CtrlFile_NEB.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   SEE ALSO: Setup_test1.dat in the same directory
+!
+!***********************************************************************
+!
+&CTLF_NEB
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 123456
+     &BOXS     box in one test = 1, total num = 1
+   &ENDSUBCTL
+   
+  &NEBSUBCTL
+     &NUMIMGS  number of images = 21
+     &KVAL     spring constant =  10
+     &QUICKDAMP    =  1000  "ST", "LBFGS" , "CG-LS",
+
+     &EVENTDETECTSUBCTL
+        &DRTOL     displacement for judging if event occur (LU) 0.03
+        &QUENCHSTEP    1000 "ST"
+        &STEEPESTSUBCTL
+           &STEPBOUND congergence condition by stepsize (LU): 0.00001, the max stepsize: 0.1   
+           &DELTAPOT  convergence condition by potential diference between two steps: 0.00001
+        &ENDSUBCTL
+     &ENDSUBCTL
+     &CLIMB        = 1
+     &FINDNODE     = 1
+  &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 2.0, A-B= 2.0, B-A= 2.0, B-B= 2.0
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL   
+     
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 1
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 400
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10, frequecy of changing updating frequency 100
+     &CUTOFF    cutoff between neighbors = 1.8
+   &ENDSUBCTL
+
+&ENDCTLF
+  

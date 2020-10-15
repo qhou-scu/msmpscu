@@ -1,0 +1,58 @@
+!***********************************************************************
+!   This is an example file for setup EventSearch, which is an extension
+!   of Generic MD simulation. In EventSearch, events are detected and 
+!   the zero- and nonzero- temperature configurations at before and after 
+!   events to be output.
+!
+!   SEE ALSO (in DOC directories):
+!       SetupFile_general.readme     - for more general description
+!
+!***********************************************************************
+!   In the example, three simulation jobs to be conducted to simulate
+!   the diffusion of He atom in W. 
+!
+
+! JOB#1 ***********************************************************************
+!   the first job uses the BoxFile "W_2000_He1_FS_box.dat", in which
+!   the potential is denoted as a FS potential. The temperature of 
+!   the system is 500 K, . 
+!
+
+   &RESTART_GMD  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     &INIF Initial configuration file:  "W_2000_Tetra.cfg" 
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &COUT Filename output configures:  "500K_FS/Cfg"
+   &END  
+
+! JOB#2 ***********************************************************************
+!   the second job uses the BoxFile "W_2000_He1_EAM1_box.dat", in which
+!   the potential is denoted as internal-implemented EAM1 potential. 
+!   The temperature of the system is 300 K. 
+!   The initial configuration is the same as the JOB#1 
+!  
+
+   &START_GMD  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_EAM1_box.dat"
+     &INIF Initial configuration file:  "W_2000_Tetra.cfg" 
+     &CTLF  Control file:               "CtrlFile300K.dat"
+     &COUT Filename output configures:  "300K_EAM1/Cfg"
+   &END  
+
+! JOB#3 ***********************************************************************
+!   the third job uses the BoxFile "W_2000_He1_EAM1T_box.dat", in which
+!   the potential is denoted as loaded from a external potential 
+!   (the potential is actually the same as that used in JOB#2).
+!   The temperature of the system is 500 K. 
+!
+!   The inital configuration is load from the last outputs
+!   of JOB#2  
+!  
+
+   &START_GMD  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_EAM1T_box.dat"
+     &INIF Initial configuration file:  "300K_EAM1/Cfg", 53
+     &CTLF  Control file:               "CtrlFile300K.dat"
+     &COUT Filename output configures:  "500K_EAM1/Cfg"
+   &END  
+ 

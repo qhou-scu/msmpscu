@@ -1,0 +1,64 @@
+!***********************************************************************
+!   This is an example of BoxFile.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       BoxFile.readme     - for more general description
+!       
+!***********************************************************************
+!
+&BOXF ----------------------------
+    &BOXSUBCTL    
+        &SIZE   bx= 20.0,  by = 20.0, bz = 20.0
+        &LATT   latiice constant = 3.1652
+    &ENDSUBCTL   
+ 
+    &ATOMSUBCTL --- start subsection for composition of box
+       &NATOM       the total INITIAL number of atoms = 16004
+       &NGROUP      the number of groups = 3  
+       
+       &GROUPSUBCTL #1 
+          &NATOM    the number of atoms in the group = 16000
+          &ATOMP    atomic symbol = "W", atomic number = 74, atomic mass= 183.84
+          &STAT     active
+       &ENDSUBCTL   
+       
+       &GROUPSUBCTL #2
+          &NATOM    the number of atoms in the group = 4
+          &ATOMP    atomic symbol = "He", atomic number = 2,  atomic mass= 4.
+          &STAT     active
+       &ENDSUBCTL  
+      
+       &GROUPSUBCTL #3 
+          &NATOM    the number of atoms in the group = 0
+          &ATOMP    atomic symbol = "He", atomic number = 2,  atomic mass= 4.
+          &STAT     active
+       &ENDSUBCTL   
+       
+    &ENDSUBCTL --- end subsection for composition of box
+    
+    &POTSUBCTL 
+         &TYPE    "FS_TYPE"
+         &LIBNAME    "EM_TB_WangJun_W-HE_2010"
+         !           W     He   He
+         &TABLE  W   1     3    3 
+         &TABLE  He  3     2    2     
+         &TABLE  He  3     2    2     
+         
+         !&TYPE    "FS_TYPE"
+         !&LIBNAME    "EM_TB_WangJun_W-HE_2010"
+         !           W     He
+         !&TABLE  W   1     3
+         !&TABLE  He  3     2
+
+         !&LIBNAME   "EAM_WHeH_Bonny_JPCM26_2014", "EAM1"
+         !           W      H
+         !&TABLE  W   1     2
+         !&TABLE  H   5     4
+         
+         !           W      He
+         !&TABLE  W    1     3
+         !&TABLE  He   8     7
+    &ENDSUBCTL --- end subsection for potential table of atom pair   
+&ENDBOX  ----------------------------

@@ -1,0 +1,100 @@
+!***********************************************************************
+!   This is an example of CtrFile for generic MD.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       CtrlFile_GMD.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   SEE ALSO: SampleSetup.dat in the same directory
+!             CtrlFile500K.dat
+!
+&CTLF:GMD
+
+  &COMMSUBCTL
+     &RANDSEED random number seed  = 123456
+     &BOXS     box in one test = 10, total num = 50, independent = 1
+   &ENDSUBCTL
+
+  &POTENSUBCTL   
+     &CUTOFF      cutoff distances: A-A= 1.9, A-B= 1.9, B-A= 1.9, B-B= 1.9
+     &TABLESIZE   10000, output force table= "NO" 
+  &ENDSUBCTL  
+
+  &SECTSUBCTL  #1 we quenching the system to equilibrum state at zero temperture
+   &TEMPSUBCTL 
+      &TEMPERATURE    temperature of the system= 0
+      &THERMALIZATION number of thermalizing = 0, for non-thermalization
+      &QUICKDAMP      number of step for quick dumpping = 1000, method =  "ST", "CG", "ST",  "LBFGS", "DYN",
+       &STEEPESTSUBCTL
+           &ALPHA     = 0.01
+           &STEPBOUND = 0.00001, 0.1   
+           &DELTAPOT  = 0.0001
+       &ENDSUBCTL
+
+   &ENDSUBCTL   
+   
+   &TIMESUBCTL
+     &TERMINATE  terminate simulation for steps = 1000
+     &STEPSIZE   use fixd step flag= 0, hmi= 0.5, hmx = 0.5, dmx = 0.01 
+     &OUTPUT_T   output thermal quantities for every 1000 time step   
+     &OUTPUT_C   output instant configure for every  1000 time step, in multiple files "S"       
+     &SAVE       output instant configure for every  1000 time step   
+   &ENDSUBCTL    
+     
+   &BOUNDSUBCTL   
+    &PERIDIC  periodic conditions X= 1, Y= 1, Z= 1
+   &ENDSUBCTL
+    
+   &NEIGHBSUBCTL   
+     &MAXNB     maxmun number of neighbore for an atom= 256
+     &UPDATEFRE minimun frequcency= 10, max frequence= 10, frequecy of changing updating frequency 100
+     &CUTOFF    cutoff between neighbors = 1.2
+   &ENDSUBCTL
+
+  &ENDSUBCTL end section #1  ---------------------
+  
+  
+  &SECTSUBCTL  #2 we thermalize the system to 300K
+   &TEMPSUBCTL !--- note the change compared to section #1
+      &TEMPERATURE    temperature of the system= 300
+      &THERMALIZATION number of thermalizing= 100, for evry steps 100, method = "MC"
+      &QUICKDAMP      disable quench process by set = 0
+   &ENDSUBCTL   
+   
+   &TIMESUBCTL
+     !--- the thermalization to be performed for 100*100 time steps
+     !    thus should set the timesteps in this section for at least 10000
+     &TERMINATE  terminate simulation for steps = 10000
+     
+     &STEPSIZE   use fixd step flag= 0, hmi= 0.5, hmx = 0.5, dmx = 0.01 
+     &OUTPUT_T   output thermal quantities for every 5000 time step   
+     &OUTPUT_C   output instant configure for every  5000 time step, 
+     &SAVE       output instant configure for every  5000 time step   
+   &ENDSUBCTL    
+   
+   !--- the boundary condition and the neighbor-list control are the same 
+   !    as in the SECTSUBCTRL #1, we do not input again
+   !......
+    
+  &ENDSUBCTL end section #2  ---------------------
+  
+  &SECTSUBCTL  #3 we let the system freely evolution
+   &TEMPSUBCTL 
+      &THERMALIZATION disable thermalization= 0, for free evolution
+   &ENDSUBCTL   
+   
+   &TIMESUBCTL
+     &TERMINATE  terminate simulation for steps = 10000
+     &OUTPUT_T   output thermal quantities for every 1000 time step
+     &OUTPUT_C   output instant configure for every  1000 time step  
+     &SAVE       output instant configure for every  1000 time step   
+   &ENDSUBCTL    
+ 
+  &ENDSUBCTL end section #3  ---------------------
+  
+
+&ENDCTLF
+  

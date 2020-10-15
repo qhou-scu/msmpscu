@@ -1,0 +1,70 @@
+!***********************************************************************
+!   This is an example file for setup MD-ART simulation. 
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       SetupFile_general.readme     - for more general description
+!
+!***********************************************************************
+!   In the example, four simulation jobs to be conducted to simulate
+!   the evolution of He atom in W. 
+!
+
+! JOB#1 ***********************************************************************
+!   the first job is to search adjcent stable states by the method
+!   ART using  control parameters CtrlFileART1.dat, in which only
+!   single He atom (type 2) is activated.  
+!
+
+   &START_ART  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     !&BOXF  Simulation box setup file: "W_2000_He1_EAM1_box.dat"
+     &INIF Initial configuration file:  "W_2000_Tetra.cfg" 
+     &CTLF  Control file:               "CtrlFileART1.dat"
+     &COUT Filename output configures:  "ART1/Cfg"
+   &END  
+
+! JOB#2 ***********************************************************************
+!   the second job is to search adjcent stable states by the method
+!   ART using  control parameters CtrlFileART2.dat, in which only
+!   the He atom (type 2) and its surrounding W atoms are activated.  
+!
+
+   &START_ART  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     !&BOXF  Simulation box setup file: "W_2000_He1_EAM1_box.dat"
+     &INIF Initial configuration file:  "W_2000_Tetra.cfg" 
+     &CTLF  Control file:               "CtrlFileART2.dat"
+     &COUT Filename output configures:  "ART2/Cfg"
+   &END  
+   
+! JOB#3 ***********************************************************************
+!   the third job is to search adjcent stable states by the method
+!   ART using  control parameters CtrlFileART3.dat, in which only
+!   the W atoms surrounding the He atom are activated.  
+!
+
+   &START_ART  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     !&BOXF  Simulation box setup file: "W_2000_He1_EAM1_box.dat"
+     &INIF Initial configuration file:  "W_2000_Tetra.cfg" 
+     &CTLF  Control file:               "CtrlFileART3.dat"
+     &COUT Filename output configures:  "ART3/Cfg"
+   &END  
+   
+   
+! JOB#4 ***********************************************************************
+!*** start a NEB calculation with the created 
+!    configurations by ART
+!
+   &START_NEB  "pause"
+     &BOXF  Simulation box setup file:  "W_2000_He1_FS_box.dat"
+     &INIF  configuration file:         "ART1/Cfg_0K_", 0, 30, 2
+     &CTLF  Control file:               "CtrlFileNEB.dat"
+     
+     !*** the outputs will placed in the directory "NEB"
+     &COUT Filename output configures:     "NEB1/"
+   &END  
+
+ 

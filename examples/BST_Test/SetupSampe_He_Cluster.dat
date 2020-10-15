@@ -1,0 +1,55 @@
+!***********************************************************************
+!   This is an example file for setup Cluster_Growth simulation. 
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       SetupFile_general.readme     - for more general description
+!
+!***********************************************************************
+!   In the example, we demonstrate to simulate growth of He clusters.
+!   Frist, we insert an He atom in a simulation box of perfect W crystal
+!   containing 2000 W atoms. Then, He atoms are sequentialy added to the 
+!   neighboring region of the He (atom) cluster. 
+!   
+!   The  simulations to be perfermed is GMD simulations. In addition of 
+!   the control files for usual GMD simulations, control file (Growth_Ctrl_He.in)
+!   for identifying the defect clusters is also required. We use the 
+!   algorithm implemented in RefVoronoiVA_GPU to identify defect clusters.
+!   The control file ReferenceLattice.in is similar to that of running 
+!   RefVoronoiVA_GPU.
+!
+
+   
+   &START_BST  "pause"
+     &CTLF  Control file:               "CtrlFileBST.dat"
+     &BOXF  Simulation box setup file:  "He-cluster/W_2000_He_EAM1_box.dat"
+     &INIF Initial configuration file:  "He-cluster/HE1/CfgP0000_0010.0044"  "S"
+     &COUT Filename output configures:  "He-cluster/HE2/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_He.in"
+	   &AUXF_RVVOUT  "He-cluster/HE2/ClusterData/"
+   &END    
+ exit
+         
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFileBST.dat"
+     &BOXF  Simulation box setup file:  "He-cluster/W_2000_He2_EAM1_box.dat"
+     &INIF Initial configuration file:  "He-cluster/HE2/Cfg"  44, "S"
+     &COUT Filename output configures:  "He-cluster/HE3/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_He.in"
+	   &AUXF_RVVOUT  "He-cluster/HE3/ClusterData/"
+   &END   
+   
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFileBST.dat"
+     &BOXF  Simulation box setup file:  "He-cluster/W_2000_He3_EAM1_box.dat"
+     &INIF Initial configuration file:  "He-cluster/HE3/Cfg"  44, "S"
+     &COUT Filename output configures:  "He-cluster/HE4/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_He.in"
+	   &AUXF_RVVOUT  "He-cluster/HE4/ClusterData/"
+   &END    
+   
+
+
+
+

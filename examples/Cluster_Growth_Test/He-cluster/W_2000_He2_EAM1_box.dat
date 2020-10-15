@@ -1,0 +1,50 @@
+!***********************************************************************
+!   This is an example of BoxFile.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       BoxFile.readme     - for more general description
+!       
+!***********************************************************************
+!
+!
+&BOXF ----------------------------
+    &BOXSUBCTL    
+        &SIZE   bx= 10.0,  by = 10.0, bz = 10.0
+        &LATT   latiice constant = 3.14
+    &ENDSUBCTL   
+ 
+    &ATOMSUBCTL --- start subsection for composition of box
+       &NATOM       the total INITIAL number of atoms = 2002
+       &NGROUP      the number of groups = 3  
+       
+       &GROUPSUBCTL #1 
+          &NATOM    the number of atoms in the group = 2000
+          &ATOMP    atomic symbol = "W", atomic number = 74, atomic mass= 183.84
+          &STAT     active
+       &ENDSUBCTL   
+       
+       &GROUPSUBCTL #2
+          &NATOM    the number of atoms in the group = 0
+          &ATOMP    atomic symbol = "H", atomic number = 1,  atomic mass= 1.
+          &STAT     active
+       &ENDSUBCTL  
+      
+       &GROUPSUBCTL #3 
+          &NATOM    the number of atoms in the group = 2
+          &ATOMP    atomic symbol = "He", atomic number = 1,  atomic mass= 1.
+          &STAT     active
+       &ENDSUBCTL   
+       
+    &ENDSUBCTL --- end subsection for composition of box
+    
+    &POTSUBCTL 
+         &TYPE     "EAM_TYPE"
+         &LIBNAME  "EAM_WHeH_Bonny_JPCM26_2014", "EAM1"
+         !           W     H    He
+         &TABLE  W   1     2     3
+         &TABLE  H   4     5     6
+         &TABLE  He  7     8     9
+    &ENDSUBCTL --- end subsection for potential table of atom pair   
+&ENDBOX  ----------------------------

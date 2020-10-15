@@ -1,0 +1,47 @@
+!***********************************************************************
+!   This is an example of BoxFile.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       BoxFile.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   The example provides descrption on the configuration stored in file
+!   "W_2000_Tetra.cfg", in which there are 2000 W atom and a H atom. 
+!   The H atom was placed at a tetrahdron site. 
+!
+!   SEE ALSO: W_2000_He1_EAM1_box.dat, to find the difference
+!
+
+&BOXF ----------------------------
+    &BOXSUBCTL    
+        &SIZE   bx= 10.0,  by = 10.0, bz = 10.0
+        &LATT   latiice constant = 3.14
+    &ENDSUBCTL   
+ 
+    &ATOMSUBCTL --- start subsection for composition of box
+       &NATOM       the total INITIAL number of atoms = 2001
+       &NGROUP      the number of groups = 2  
+       
+       &GROUPSUBCTL #1 
+          &NATOM    the number of atoms in the group = 2000
+          &ATOMP    atomic symbol = "W", atomic number = 74, atomic mass= 183.84
+       &ENDSUBCTL  
+       
+       &GROUPSUBCTL #2
+          &NATOM    the number of atoms in the group = 1
+          &ATOMP    atomic symbol = "H", atomic number = 1,  atomic mass= 1.
+       &ENDSUBCTL 
+      
+    &ENDSUBCTL --- end subsection for composition of box
+    
+    &POTSUBCTL 
+         &TYPE    "EAM_TYPE"
+         &LIBNAME   "EAM_WHeH_Bonny_JPCM26_2014", "EAM1"
+         !!!!!!       W     H  Note: this line is a comment statement  
+         &TABLE  W    1     2
+         &TABLE  H    4     5
+    &ENDSUBCTL --- end subsection for potential table of atom pair   
+&ENDBOX  ----------------------------

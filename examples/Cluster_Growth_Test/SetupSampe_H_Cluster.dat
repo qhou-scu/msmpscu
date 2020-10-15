@@ -1,0 +1,42 @@
+!***********************************************************************
+!   In the example, we demonstrate to simulate growth of H clusters.
+!   Frist, we insert an He atom in a simulation box of perfect W crystal
+!   containing 2000 W atoms. Then, He atoms are sequentialy added to the 
+!   neighboring region of the He (atom) cluster. 
+!   
+!   The  simulations to be perfermed is GMD simulations. In addition of 
+!   the control files for usual GMD simulations, a control file (Growth_Ctrl_H.in)
+!   for identifying the defect clusters is also required. We use the 
+!   algorithm implemented in RefVoronoiVA_GPU to identify defect clusters.
+!   The control file ReferenceLattice.in is similar to that of running 
+!   RefVoronoiVA_GPU.
+!         
+   &START_GMD  "pause"
+     &BOXF  Simulation box setup file:   "W_2000_EAM1_box.dat"
+     &INIF  Initial configuration file:  "W_2000.cfg"
+     &CTLF  Control file:                "CtrlFile500K.dat"
+     &COUT  Filename output configures:  "H-cluster/H1/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_H.in"
+	   &AUXF_RVVOUT  "H-cluster/H1/ClusterData/"
+   &END  
+     
+   &START_GMD  "pause"
+     &BOXF  Simulation box setup file:  "H-cluster/W_2000_H_EAM1_box.dat"
+     &INIF Initial configuration file:  "H-cluster/H1/Cfg"  44
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &COUT Filename output configures:  "H-cluster/H2/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_H.in"
+	   &AUXF_RVVOUT  "H-cluster/H2/ClusterData/"
+   &END    
+         
+   &START_GMD  "pause"
+     &BOXF  Simulation box setup file:  "H-cluster/W_2000_H2_EAM1_box.dat"
+     &INIF Initial configuration file:  "H-cluster/H2/Cfg"  44
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &COUT Filename output configures:  "H-cluster/H3/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_H.in"
+	   &AUXF_RVVOUT  "H-cluster/H3/ClusterData/"
+   &END    
+         
+ 
+

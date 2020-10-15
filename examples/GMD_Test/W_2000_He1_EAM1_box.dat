@@ -1,0 +1,50 @@
+!***********************************************************************
+!   This is an example of BoxFile.
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       BoxFile.readme     - for more general description
+!       
+!***********************************************************************
+!
+!   The example provides descrption on the configuration stored in file
+!   "W_2000_Tetra.cfg", in which there are 2000 W atom and a He atom. 
+!   The He atom was placed at a tetrahdron site.
+!
+!   The potential to be used is the internal potential lib:
+!   "EAM_WHeH_Bonny_JPCM26_2014" 
+!
+!
+&BOXF ----------------------------
+    &BOXSUBCTL    
+        &SIZE   bx= 10.0,  by = 10.0, bz = 10.0
+        &LATT   latiice constant = 3.1652
+    &ENDSUBCTL   
+ 
+    &ATOMSUBCTL --- start subsection for composition of box
+       &NATOM       the total INITIAL number of atoms = 2001
+       &NGROUP      the number of groups = 2  
+       
+       &GROUPSUBCTL #1 
+          &NATOM    the number of atoms in the group = 2000
+          &ATOMP    atomic symbol = "W", atomic number = 74, atomic mass= 183.84
+          &STAT     active
+       &ENDSUBCTL  
+       
+       &GROUPSUBCTL #2
+          &NATOM    the number of atoms in the group = 1
+          &ATOMP    atomic symbol = "He", atomic number = 2,  atomic mass= 4.
+          &STAT     active
+       &ENDSUBCTL 
+      
+    &ENDSUBCTL --- end subsection for composition of box
+    
+    &POTSUBCTL 
+         &TYPE      "EAM_TYPE"
+         &LIBNAME   "EAM_WHeH_Bonny_JPCM26_2014", "EAM1"
+         !!!!!!       W      He  Note: this line is a comment statement  
+         &TABLE  W    1     3
+         &TABLE  He   7     9
+    &ENDSUBCTL --- end subsection for potential table of atom pair   
+&ENDBOX  ----------------------------

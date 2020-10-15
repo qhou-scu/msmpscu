@@ -1,0 +1,63 @@
+!***********************************************************************
+!   This is an example file for setup Cluster_Growth simulation. 
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       SetupFile_general.readme     - for more general description
+!
+!***********************************************************************
+!   In the example, we demonstrate to simulate growth of vacancy clusters.
+!   First, we delete a W atom in a simulation box of perfect W crystal
+!   containing 2000 W atoms. Then, W atoms in the neighboring region are 
+!   sequentialy removed to create the vacancy cluster.
+!   
+!   The  simulations to be perfermed is GMD simulations. In addition of 
+!   the control files for usual GMD simulations, control file (Growth_Ctrl_Vac.in)
+!   for identifying the defect clusters is also required. We use the 
+!   algorithm implemented in RefVoronoiVA_GPU to identify defect clusters.
+!   The control file ReferenceLattice.in is similar to that of running 
+!   RefVoronoiVA_GPU.
+!
+
+         
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &BOXF  Simulation box setup file:  "W_2000_EAM1_box.dat"
+     &INIF Initial configuration file:  "W_2000.cfg"
+     &COUT Filename output configures:  "Vac-cluster/Vac1/Cfg" 
+     
+	   &AUXF_RVVIN 	"Growth_Ctrl_Vac.in"
+	   &AUXF_RVVOUT  "Vac-cluster/Vac1/ClusterData/"
+   &END    
+   
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &BOXF  Simulation box setup file:  "Vac-cluster/W_1999_EAM1_box.dat"
+     &INIF Initial configuration file:  "Vac-cluster/Vac1/Cfg"  44
+     &COUT Filename output configures:  "Vac-cluster/Vac2/Cfg" 
+     
+	   &AUXF_RVVIN 	"Growth_Ctrl_Vac.in"
+	   &AUXF_RVVOUT  "Vac-cluster/Vac2/ClusterData/"
+   &END    
+         
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &BOXF  Simulation box setup file:  "Vac-cluster/W_1998_EAM1_box.dat"
+     &INIF Initial configuration file:  "Vac-cluster/Vac2/Cfg"  44
+     &COUT Filename output configures:  "Vac-cluster/Vac3/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_Vac.in"
+	   &AUXF_RVVOUT  "Vac-cluster/Vac3/ClusterData/"
+   &END   
+   
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile500K.dat"
+     &BOXF  Simulation box setup file:  "Vac-cluster/W_1997_EAM1_box.dat"
+     &INIF Initial configuration file:  "Vac-cluster/Vac3/Cfg"  44
+     &COUT Filename output configures:  "Vac-cluster/Vac4/Cfg" 
+	   &AUXF_RVVIN 	 "Growth_Ctrl_Vac.in"
+	   &AUXF_RVVOUT  "Vac-cluster/Vac4/ClusterData/"
+   &END   
+
+
+

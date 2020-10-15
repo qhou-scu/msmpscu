@@ -1,0 +1,50 @@
+!***********************************************************************
+!   This is an example file for setup Cascade simulation, an applicattion
+!   developed on the basis of MDPSCU. 
+!
+!   Each line strating with chracter ! will be explained as a comment 
+!   line(just like this line). 
+!
+!   SEE ALSO (in DOC directories):
+!       SetupFile_general.readme     - for more general description
+!
+!***********************************************************************
+!   In the example, we demonstrate to simulate He atom incident on the W 
+!   surface.
+!   
+!   The  simulations to be perfermed is GMD simulations. In addition of 
+!   the control files for usual GMD simulations, an additional control 
+!   file (Cascade_He_1keV.in), denoted by keyword &AUXF_DEPOSIT
+!   for seting up projectile is also required. 
+!
+!****** first stage
+!       At first, we prepare the substrate at a temperature 300K
+!       This stage is just like running Substrate.exe
+!      
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile300K.dat"
+     &BOXF  Simulation box setup file:  "W_54000_He0_FS_box.dat"
+     &INIF Initial configuration file:  "W_54000.cfg"
+     &COUT Filename output configures:  "W_300K/" 
+   &END    
+
+!****** second stage
+!       Second, we deposit an He atom to each box generated
+!       in the first stage. The deposition parameter given 
+!       by "Cascade_He_1keV.in"
+!      
+   &START_GMD  "pause"
+     &CTLF  Control file:               "CtrlFile300K_LOC_T.dat"
+     &BOXF  Simulation box setup file:  "W_54000_He0_FS_box.dat"   
+     &INIF Initial configuration file:  "W_300K/P0000_0001.0020"  input vel= "yes"
+     &COUT Filename output configures:  "He_1keV/" 
+     &AUXF_DEPOSIT "Cascade_He_1keV.in"
+   &END        
+         
+
+            
+ 
+
+
+
+

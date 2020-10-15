@@ -1,0 +1,111 @@
+!***********************************************************************
+!
+!   This is a sample file for a control parameter file. 
+!   The version is diffrent from the old control file
+!   is that in the present, the parameters are indicated
+!   by keyword. Thus the positions of the parameters
+!   can be any.  
+!
+!   You can write comments and empty lines in the file. 
+!   Each line strating with ! will be explained as a 
+!   comment line(just like this line). 
+!
+!   In the front of the parameters, discription could be added. 
+!   The seperator between the parameters and the discription is 
+!   = or space.  Between each line, one could add empty lines or
+!   or comments
+!   ___________________________________________________________
+!   FORMAT:
+!
+!       &BOXF
+!         &[keyword of subsection]
+!           &[keyword of parameter1]  parameter= ...
+!           &[keyword of parameter2]  parameter= ...
+!           ...
+!         $ENDSUBCTL
+!       &ENDBOX
+!
+!   The input section should be started with keyword "&BOXF", 
+!   and ended with "&ENDCTL". The input section contains a set
+!   of subsections starting with keyword for the subsection
+!   and ended with keyword "&ENDSUBCTL". If a keyword dose not
+!   appear, default value for that parameter(s) will be used
+!
+!  ___________________________________________________________
+!   KEYWORDS LIST of subsection:
+!  
+!       &BOXSUBCTL     -  indicate start of subsection of parameters defining the boxsize
+!                         and lattice structures
+!       &ATOMSUBCTL    -  indicate start of subsection of parameters defining the number 
+!                         of atoms and atom kinds concerned.
+!       &ENDSUBCTL     -  indicate end of a subsection
+!
+!  ___________________________________________________________
+!   KEYWORDS of BOXSUBCTL subsection:
+!      &BOXSUBCTL    - indicate the start of this subsection of box parameters
+!        &SIZE       - indicate inpput box size in X, Y, Z direction
+!        &LOWB       - indicate input of low boundary of the box, that is
+!                      (xmin, ymin, zmin) of the box
+!        &LATT       - inicate input of lattice constant and lattice
+!                      type (optional) 
+!      &ENDSUBCTL    -  indicate end of a subsection
+
+!  ___________________________________________________________
+!   KEYWORDS of ATOMSUBCTL subsection:
+!      &ATOMSUBCTL   - indicate the start of this subsection of atom parameters
+!        &NATOM      - indicate input of total INITIAL number of atoms.
+!        &NGROUP     - indicate input of number of groups that the atoms are grouped in  
+!        &GROUPSUBCTL - indicate start of parameters of a atom group
+!           &NATOM    - inicate input of number of atoms in the group
+!           &ATOMP    - indicate input of atom properties of the atoms in the group:
+!                       for example, atomic number= 40; atomic mass= 91.22; atomic symbole= "Zr" 
+!           &STAT     - indicate input of state of the group (fixed position, or fixed velociies etc)
+!        &ENDSUBCTL   -  indicate end of a subsection
+!      &ENDSUBCTL     -  indicate end of a subsection
+
+!  ___________________________________________________________
+!   KEYWORDS of POTSUBCTL subsection:
+!      &POTSUBCTL    - indicate the start of this subsection of potential 
+!        &TYPE       - indicate inpput type of the potential to used, for example "FS_TYPE", "EAM_TYPE" etc
+!        &LIBNAME    - indicate inpput of the name of the potential library
+!        &TABLE       - indicate input of potential table to be used for atom group pairs
+!                       number of &TABLE statements should be equal to the number of groups    
+!      &ENDSUBCTL    -  indicate end of a subsection
+
+
+!***********************************************************************
+!
+&BOXF ----------------------------
+    &BOXSUBCTL    
+        &SIZE   bx= 10.0,  by = 10.0, bz = 10.0
+        &LATT   latiice constant = 3.14
+    &ENDSUBCTL   
+ 
+    &ATOMSUBCTL --- start subsection for composition of box
+       &NATOM       the total INITIAL number of atoms = 2001
+       &NGROUP      the number of groups = 2  
+       
+       &GROUPSUBCTL #1 
+          &NATOM    the number of atoms in the group = 2000
+          &ATOMP    atomic symbol = "W", atomic number = 74, atomic mass= 183.84
+          &STAT     active
+       &ENDSUBCTL  
+       
+       &GROUPSUBCTL #2
+          &NATOM    the number of atoms in the group = 1
+          &ATOMP    atomic symbol = "H", atomic number = 1,  atomic mass= 1.
+          &STAT     active
+!         &STAT      fixed = 14         
+       &ENDSUBCTL 
+      
+    &ENDSUBCTL --- end subsection for composition of box
+    
+    &POTSUBCTL 
+         &TYPE    "EAM_TYPE"
+         &LIBNAME   "EAM_WHeH_Bonny_JPCM26_2014", "EAM1"
+
+         !---        W     H
+         &TABLE  W   1     2
+         &TABLE  H   4     5
+    &ENDSUBCTL --- end subsection for potential table of atom pair   
+&ENDBOX  ----------------------------
