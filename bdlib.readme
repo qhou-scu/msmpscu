@@ -1,10 +1,10 @@
+# bdlib
 bdlib is to build the static libraries that will be linked to applications based on this packaged.
 
 1. Check the following points before run any build command   
 
 To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. 
 By default, the installed cuda is assumed to be 8.0 with the caplbility 3.0. It the other version, for example, cuda10.1 is installed, add the variable to .bashrc file
- 	
 
     export CUDAV=10.1
     export CUDAC=7.0
@@ -12,7 +12,7 @@ By default, the installed cuda is assumed to be 8.0 with the caplbility 3.0. It 
 If the path of msmpscu sources is SOMEWHERE in youe home path, add the following statement in your .bashrc file:
 
     MSMPSCUSOR=$HOME/SOMEWHERE/msmpscu; export MSMPSCUSOR
-	  PATH=$MSMPSCUSOR:$PATH; export PATH
+    PATH=$MSMPSCUSOR:$PATH; export PATH
  
 It is recommanded to output the intermediate files (.o, .mod) and libraries (lib*.a) to a location beyond the localtion of the mdpscu sources.
 For example, if the your workspace is SOMEWHERE in your home path,  add the following statement in your .bashrc file:
