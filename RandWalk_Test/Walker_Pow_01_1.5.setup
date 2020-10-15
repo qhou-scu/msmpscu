@@ -1,0 +1,11 @@
+&WALKER
+  &SYMB     = "He"
+  &WALKTYPE = "1D"
+  &JUMP
+    &RATE  = 1 
+    &WTD   = "POW" 0.1, 1.5
+    &JPVECS = 1
+         ( 0, 0, 1)
+ 
+  &ENDJUMP
+&ENDWALKDEF 

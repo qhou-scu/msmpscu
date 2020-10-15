@@ -1,0 +1,2 @@
+-CF Walk_Surf1D_Pow.setup -WF Walker_Pow_01_0.5.setup    -restart  y  -outto Test_Pow_0.5
+-CF Walk_Surf1D_Pow.setup -WF Walker_Pow_01_1.setup      -restart  y  -outto Test_Pow_1

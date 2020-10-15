@@ -1,0 +1,23 @@
+&BOXSUBCTL "SF2D" 2048
+   &RANDSEED = 342345
+   &SIZE     = 100 
+   &NATOM    = 1000
+   !&SIZE    = 3162.277660168379
+   !&NATOM    = 10000000
+&ENDSUBCTL
+
+&RADSUBCTL
+   &MXNPATIME    100
+   !&MXNPATIME    100000
+   &SORSUBCTL "He" "EXT"
+     &FLUX    = 1.D20  (/cm^2/s)
+     &TIMEON  = 0
+     &TIMEOFF = 1.D0   (s)
+     &DEPTH   = ( 1., 10.) nm
+   &ENDSUBCTL
+&ENDSUBCTL
+
+&RECSUBCTL
+  &RECTIME "LOG"  0.01   1D8
+  &OUTPUT "Test14"
+&ENDSUBCTL
