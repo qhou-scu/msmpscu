@@ -3,7 +3,7 @@
  
  Installation requirements:
  
-    operation platform: Linux.  
+    operation platform: Linux workstation with at least one GPU card in Nvidia Kx or later serials.  
     compiler:  PGI Fortran community Edition version.
     Cuda: 8.0 or higher.
  
