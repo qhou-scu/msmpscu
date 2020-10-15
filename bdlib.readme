@@ -1,5 +1,5 @@
 # bdlib
-bdlib is to build the static libraries that will be linked to applications based on this packaged.
+bdlib is to build the static libraries that will be linked to applications based on this packaged. Run bdlib to bild required libraries.
 
 1. Check the following points before run any build command   
 
