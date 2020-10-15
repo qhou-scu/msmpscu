@@ -2,33 +2,27 @@ bdlib is to build the static libraries that will be linked to applications based
 
 1. Check the following points before run any build command   
 
-	!*****************************************************************
-	To correctlly build the mdpscu libraries, the envirenment varibale 
-	should be set in file .bashrc. 
+To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. 
+By default, the installed cuda is assumed to be 8.0 with the caplbility 3.0. It the other version, for example, cuda10.1 is installed, add the variable to .bashrc file
+ 	
 
-	For example, if the path of mdpscu sources is SOMEWHERE in youe 
-	home path, add the following statement in your .bashrc file:
+    export CUDAV=10.1
+    export CUDAC=7.0
 
-	MDPSCUSOR=$HOME/SOMEWHERE/mdpscu; export MDPSCUSOR
-	PATH=$MDPSCUSOR:$PATH; export PATH
+If the path of msmpscu sources is SOMEWHERE in youe home path, add the following statement in your .bashrc file:
 
-	!*****************************************************************
-	It is recommanded to output the intermediate files (.o, .mod) and 
-	libraries (lib*.a) to a location beyond the localtion of the mdpscu 
-	sources.
-	
-	For example, if the your workspace is SOMEWHERE in your home path, 
-	add the following statement in your .bashrc file:
+    MSMPSCUSOR=$HOME/SOMEWHERE/msmpscu; export MSMPSCUSOR
+	  PATH=$MSMPSCUSOR:$PATH; export PATH
+ 
+It is recommanded to output the intermediate files (.o, .mod) and libraries (lib*.a) to a location beyond the localtion of the mdpscu sources.
+For example, if the your workspace is SOMEWHERE in your home path,  add the following statement in your .bashrc file:
 
-	WORKSPACE=$HOME/SOMEWHERE; export WORKSPACE
-	PATH=$WORKSPACE/applications:$PATH; export PATH
+	 WORKSPACE=$HOME/SOMEWHERE; export WORKSPACE
+	 PATH=$WORKSPACE/applications:$PATH; export PATH
 
-	Then, the intermediate files and libraries will be output to 
-	$HOME/SOMEWHERE/LIB, and the excutables to be build will be output 
-	to $HOME/SOMEWHERE/applications.
+Then, the intermediate files and libraries will be output to 	$HOME/SOMEWHERE/LIB, and the excutables to be build will be output to $HOME/SOMEWHERE/applications.
 
-
-2. Restart a terminal
+2. source .bashrc
 3. Run "bidlib MDLIB", to build the basic libraries for MD applications,
    or, Run "bidlib MCLIB", to build the basic libraies for MC applications,
    or, Run "bidlib all",   to build all the basic libraies. 
