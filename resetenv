@@ -31,7 +31,43 @@ if [ "$CUDAC" = "" ]; then
    fi
 fi   
 
+#------------------------------------------------------------------------
+echo 'Add the envirement variables to the .bashrc' 
+echo "" >> $HOME/.bashrc
+echo '#--- the envirement variables for buiding MSMPSCU' >> $HOME/.bashrc
+THISDIR=$PWD 
+MSMPSCUSOR=$THISDIR
+echo "MSMPSCUSOR=$MSMPSCUSOR; export MSMPSCUSOR" >> $HOME/.bashrc
 
+#------------------------------------------------------------------------
+
+echo 'The directory "ws-msmpscu" of generated libs and apps is in home directory.' 
+echo 'Change the path (y/n)? '
+read Y
+if test "$Y" = "y" ; then
+   echo -n 'Please input directory '
+   read WDIR
+   WORKSPACE=$WDIR/ws-msmpscu
+else
+   WORKSPACE=$HOME/ws-msmpscu
+fi   
+
+cd $HOME
+echo -n 'mkdir '$WORKSPACE
+mkdir  $WORKSPACE   
+echo "WORKSPACE=$WORKSPACE; export WORKSPACE" >> $HOME/.bashrc
+echo "PATH=\$PATH:\$MSMPSCUSOR:\$WORKSPACE/applications:\$WORKSPACE/analytools;" >> $HOME/.bashrc
+
+
+#------------------------------------------------------------------------
+echo 'make link to application sources' 
+ln -s $MSMPSCUSOR/MDLIB/sor/Applications $WORKSPACE/mdapps
+ln -s $MSMPSCUSOR/MDLIB/sor/Analysis $WORKSPACE/mdanaly
+ln -s $MSMPSCUSOR/MCLIB/sor/Applications $WORKSPACE/mcapps
+
+
+
+#------------------------------------------------------------------------
 echo 'The preset cuda version is '$CUDAV' with the capability '$CUDAC"" 
 echo 'Reset CUDA (y/n)? '
 read Y
@@ -52,6 +88,7 @@ if test "$Y" = "y" ; then
    fi
 fi   
 
+#------------------------------------------------------------------------
 echo -n 'Reset the compiler (y/n) '
 read Y
 if test "$Y" = "y" ; then
@@ -73,4 +110,10 @@ if test "$Y" = "y" ; then
       echo export $PATH >> $HOME/.bashrc
    fi
 fi
+
+
+
+
+
+
   
