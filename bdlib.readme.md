@@ -1,32 +1,14 @@
 # bdlib
-bdlib is to build the static libraries that will be linked to applications based on this packaged. Run bdlib to bild required libraries.
+bdlib is to build the static libraries for applications based on this packaged. 
+The LIB and MSMLIB directory contain the sources for some mathematical and data operations either on CPU and GPU.  
+The MDLIB directory contains sources for MD simulations. The MCLIB directories contains sources for MC simulations. Both MDLIB and MCLIB are dependent of LIB and MSMLIB.
+MDLIB and MCLIB are independent, and thus can be build seperately.
 
-1. Check the following points before run any build command   
-
-To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. 
-By default, the installed cuda is assumed to be 8.0 with the caplbility 3.0. It the other version, for example, cuda10.1 is installed, add the variable to .bashrc file
-
-    export CUDAV=10.1
-    export CUDAC=7.0
-
-If the path of msmpscu sources is SOMEWHERE in youe home path, add the following statement in your .bashrc file:
-
-    MSMPSCUSOR=$HOME/SOMEWHERE/msmpscu; export MSMPSCUSOR
-    PATH=$MSMPSCUSOR:$PATH; export PATH
- 
-It is recommanded to output the intermediate files (.o, .mod) and libraries (lib*.a) to a location beyond the localtion of the mdpscu sources.
-For example, if the your workspace is SOMEWHERE in your home path,  add the following statement in your .bashrc file:
-
-    WORKSPACE=$HOME/SOMEWHERE; export WORKSPACE
-    PATH=$WORKSPACE/applications:$PATH; export PATH
-
-Then, the intermediate files and libraries will be output to 	$HOME/SOMEWHERE/LIB, and the excutables to be build will be output to $HOME/SOMEWHERE/applications.
-
-2. source .bashrc
-3. Run "bidlib MDLIB", to build the basic libraries for MD applications,
-   or, Run "bidlib MCLIB", to build the basic libraies for MC applications,
-   or, Run "bidlib all",   to build all the basic libraies. 
+    Run "bidlib MDLIB", to build the static libraries for MD applications
+    
+    Run "bidlib MCLIB", to build the static libraies for MC applications
+    
+    Run "bidlib all",   to build all the static libraies. 
    
-4. Build applications following the instructions given in gapp.readme  
 
 
