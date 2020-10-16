@@ -1,8 +1,9 @@
 # bdlib
-bdlib is to build the static libraries for applications based on this packaged. 
+bdlib is to build the static libraries for applications based on this packaged.  
 The LIB and MSMLIB directory contain the sources for some mathematical and data operations either on CPU and GPU.  
-The MDLIB directory contains sources for MD simulations. The MCLIB directories contains sources for MC simulations. Both MDLIB and MCLIB are dependent of LIB and MSMLIB.
-MDLIB and MCLIB are independent, and thus can be build seperately.
+The MDLIB directory contains sources for MD simulations.  
+The MCLIB directories contains sources for MC simulations.  
+Both MDLIB and MCLIB are dependent of LIB and MSMLIB, but MDLIB and MCLIB are independent from each other and thus can be build seperately.
 
     Run "bidlib MDLIB", to build the static libraries for MD applications
     
