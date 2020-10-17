@@ -36,36 +36,24 @@ echo 'Add the envirement variables to the .bashrc'
 echo "" >> $HOME/.bashrc
 echo '#--- the envirement variables for buiding MSMPSCU' >> $HOME/.bashrc
 THISDIR=$PWD 
-MSMPSCUSOR=$THISDIR
-echo "MSMPSCUSOR=$MSMPSCUSOR; export MSMPSCUSOR" >> $HOME/.bashrc
+MSMPSCUSOR=$THISDIR; export MSMPSCUSOR
 
 #------------------------------------------------------------------------
 
-echo 'The directory "ws-msmpscu" of generated libs and apps is in home directory.' 
+echo 'The directory "msmpscu-ws" containing generated libs and apps is in home directory.' 
 echo 'Change the path (y/n)? '
 read Y
 if test "$Y" = "y" ; then
    echo -n 'Please input directory '
    read WDIR
-   WORKSPACE=$WDIR/ws-msmpscu
+   WORKSPACE=$HOME/$WDIR/msmpscu-ws
 else
-   WORKSPACE=$HOME/ws-msmpscu
+   WORKSPACE=$HOME/msmpscu-ws
 fi   
 
 cd $HOME
 echo -n 'mkdir '$WORKSPACE
 mkdir  $WORKSPACE   
-echo "WORKSPACE=$WORKSPACE; export WORKSPACE" >> $HOME/.bashrc
-echo "PATH=\$PATH:\$MSMPSCUSOR:\$WORKSPACE/applications:\$WORKSPACE/analytools;" >> $HOME/.bashrc
-
-
-#------------------------------------------------------------------------
-echo 'make link to application sources' 
-ln -s $MSMPSCUSOR/MDLIB/sor/Applications $WORKSPACE/mdapps
-ln -s $MSMPSCUSOR/MDLIB/sor/Analysis $WORKSPACE/mdanaly
-ln -s $MSMPSCUSOR/MCLIB/sor/Applications $WORKSPACE/mcapps
-
-
 
 #------------------------------------------------------------------------
 echo 'The preset cuda version is '$CUDAV' with the capability '$CUDAC"" 
@@ -77,40 +65,66 @@ if test "$Y" = "y" ; then
    echo -n 'Please input CUDA Capability '
    read CUDAC
    echo 'Cuda Version is' $CUDAV 'with capability' $CUDAC
-   export CUDAC
-   export CUDAV
-   echo -n 'Save the change to .bashrc (y/n)? '
-   read Y
-   if test "$Y" == "y" ; then
-      echo '#--- The cuda version' >> $HOME/.bashrc
-      echo 'export CUDAV='$CUDAV >> $HOME/.bashrc
-      echo 'export CUDAC='$CUDAC >> $HOME/.bashrc
-   fi
+   echo '#--- The cuda version' >> $HOME/.bashrc
+   echo 'export CUDAV='$CUDAV >> $HOME/.bashrc
+   echo 'export CUDAC='$CUDAC >> $HOME/.bashrc
+   
 fi   
 
+#---- save to .bashrc
+echo "MSMPSCUSOR=$MSMPSCUSOR; export MSMPSCUSOR" >> $HOME/.bashrc
+echo "WORKSPACE=$WORKSPACE; export WORKSPACE" >> $HOME/.bashrc
+echo "PATH=\$PATH:\$MSMPSCUSOR:\$WORKSPACE/applications:\$WORKSPACE/analytools;" >> $HOME/.bashrc
+
 #------------------------------------------------------------------------
-echo -n 'Reset the compiler (y/n) '
+#echo -n 'Reset the compiler (y/n) '
+#read Y
+#if test "$Y" = "y" ; then
+#   echo -n  'Please input paths of PGI compiler '
+#   read PGI 
+#   echo -n 'the version is '
+#   read PGIVER
+#   echo "path of the compiler is $PGI with version $PGIVER "
+#   export PGI
+#   L=${PGIVER%.*}
+#   R=${PGIVER#*.}
+# 
+#   PATH="$PGI/linux86-64/$L.$R/bin":"$PGI/linux86-64/20$L/include":$PATH;
+#   export PATH
+#   echo $PATH
+#   echo -n 'Save the change to .bashrc (y/n)? '
+#   read Y
+#   if test "$Y" == "y" ; then
+#      echo export $PATH >> $HOME/.bashrc
+#   fi
+#fi
+
+#---- to the make the envirement variable available
+source $HOME/.bashrc
+
+#------------- to build the libs
+echo 'to build the libraries now (y/n) '
 read Y
 if test "$Y" = "y" ; then
-   echo -n  'Please input paths of PGI compiler '
-   read PGI 
-   echo -n 'the version is '
-   read PGIVER
-   echo "path of the compiler is $PGI with version $PGIVER "
-   export PGI
-   L=${PGIVER%.*}
-   R=${PGIVER#*.}
- 
-   PATH="$PGI/linux86-64/$L.$R/bin":"$PGI/linux86-64/20$L/include":$PATH;
-   export PATH
-   echo $PATH
-   echo -n 'Save the change to .bashrc (y/n)? '
-   read Y
-   if test "$Y" == "y" ; then
-      echo export $PATH >> $HOME/.bashrc
-   fi
+	 bdlib all
+   echo ' '	 
+   echo 'libs have been build in directory '$WORKSPACE	 
+   echo 'you can build applications later using the gapp command '
+   echo 'See gapp.readme for help '
+	
+else
+  echo  'no library built '	 
+  echo  'you can build the libraries later use bdilib command'	 
+  echo  'See bdlib.readme for help'	 
+  echo  ' '	 
+  echo  'to build an application, yous should run gapp. See gapp.readme for help'	 
 fi
 
+#------------------------------------------------------------------------
+echo 'make link to application sources' 
+ln -s $MSMPSCUSOR/MDLIB/sor/Applications -T $WORKSPACE/mdapps
+ln -s $MSMPSCUSOR/MDLIB/sor/Analysis     -T $WORKSPACE/mdanaly
+ln -s $MSMPSCUSOR/MCLIB/sor/Applications -T $WORKSPACE/mcapps
 
 
 
