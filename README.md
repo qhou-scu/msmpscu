@@ -1,5 +1,5 @@
 # msmpscu
- A GPU-based package to conduct multiple-scal simulations the evolution of material structure.
+ A GPU-based package to conduct multiple-scale simulations on the dynamicaql and kinetic processes in materials.
  
   Platform requirements:  
  
