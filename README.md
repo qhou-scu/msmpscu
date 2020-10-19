@@ -10,7 +10,7 @@
  Installation requirements:  
  This package dose not provide a single excutable, but consists of many libraries used in MD, or MC applications. The libraries and the applications are built seperately. 
  
- To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. Run command "resetenv" as follows:
+ To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. Run command "resetenv" in the msmpscu directory as follows:
 
     . ./resetenv
     
