@@ -12,7 +12,7 @@
  
  To correctlly build the msmpscu libraries, the envirenment varibale should be set in file .bashrc. Run command "resetenv" as follows:
 
-    . .resetenv
+    . ./resetenv
     
  to setup the enviremental variables, or manually change the .bashrc file as follows.
  
