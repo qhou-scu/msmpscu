@@ -155,15 +155,15 @@
       integer::WID
       external theEngine
       interface
-         subroutine theEngine(RecTime, theWID, theWalkStat)
-           use MC_TypeDef_RandWalkerState
-           implicit none
-           !----   DUMMY Variables
-            real(KINDDF)            ::RecTime
-            integer                 ::theWalker
-            type(RandWalkerStat_DEV)::theWalkStat
-         end subroutine theEngine  
-      end interface
+              subroutine theEngine(RecTime, theWID, theWalkStat)
+              use MC_TypeDef_RandWalkerState
+              implicit none
+              !----   DUMMY Variables
+              real(KINDDF)            ::RecTime
+              integer                 ::theWID
+              type(RandWalkerStat_DEV)::theWalkStat
+              end subroutine theEngine  
+     end interface      
      
      !--- local variables
       integer::I

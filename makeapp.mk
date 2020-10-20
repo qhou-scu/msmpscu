@@ -63,10 +63,11 @@ mclibs     += $(foreach n, $(libnames),            $(LIBDIRD)lib$(n).$(LIB_EXT))
 mclibs     += $(foreach n, $(dependlibname),       $(DEPENDLIBD)lib$(n).$(LIB_EXT))
 
 
-mcliblist  := $(foreach n, $(randwalklibnames),   -L$(LIBDIRD) -lMC_$(n))
+mcliblist  := $(foreach n, $(mclibnames),         -L$(LIBDIRD) -lMC_$(n))
 mcliblist  += $(foreach n, $(msmcomlibnames),     -L$(LIBDIRD) -lMSM_$(n))
 mcliblist  += $(foreach n, $(libnames),           -L$(LIBDIRD) -l$(n))
 mcliblist  += $(foreach n, $(dependlibname),      -L$(DEPENDLIBD) -l$(n))
+
 
 #######################################################
 
